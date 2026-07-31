@@ -100,7 +100,37 @@ def calculer_indicateurs_globaux(livraisons, ventes, paiements):
         }
     """
          # TODO : à compléter
-    pass
+    # Calculer la quantité totale livrée moins la quantité vendue
+    stock_total = sum(l["quantite"] for l in livraisons) - sum(v["quantite"] for v in ventes)
+
+    # Initialiser le montant total à payer aux membres
+    montant_du_total = 0
+
+    # Parcourir toutes les livraisons
+    for livraison in livraisons:
+
+        # Récupérer la culture de la livraison
+        culture = livraison["culture"]
+
+        # Récupérer la quantité livrée
+        quantite = livraison["quantite"]
+
+        # Ajouter la valeur de cette livraison selon le prix d'achat
+        montant_du_total += quantite * PRIX_ACHAT_KG[culture]
+
+    # Calculer le montant déjà payé aux membres
+    montant_paye = sum(p["montant"] for p in paiements)
+
+    # Créer un ensemble des membres ayant effectué au moins une livraison
+    membres_actifs = {l["membre_id"] for l in livraisons}
+
+    # Retourner tous les indicateurs calculés
+    return {
+        "stock_total": stock_total,                         # Stock restant
+        "montant_du_total": montant_du_total - montant_paye,# Montant restant à payer
+        "nb_membres_actifs": len(membres_actifs),           # Nombre de membres actifs
+        "nb_livraisons_mois": len(livraisons)               # Nombre total de livraisons
+    }
 
 
 def calculer_livraisons_par_jour_semaine(livraisons):
@@ -120,7 +150,29 @@ def calculer_livraisons_par_jour_semaine(livraisons):
         sortie -> {"2026-07-08": 50}
     """
          # TODO : à compléter
-    pass
+    # Dictionnaire qui contiendra les quantités par date
+    resultat = {}
+
+    # Parcourir chaque livraison
+    for livraison in livraisons:
+
+        # Récupérer la date
+        date = livraison["date"]
+
+        # Récupérer la quantité
+        quantite = livraison["quantite"]
+
+        # Si la date n'existe pas encore dans le dictionnaire
+        if date not in resultat:
+
+            # Initialiser son total à zéro
+            resultat[date] = 0
+
+        # Ajouter la quantité livrée à cette date
+        resultat[date] += quantite
+
+    # Retourner le dictionnaire final
+    return resultat
 
 
 def classer_membres_par_production(livraisons):
@@ -158,7 +210,44 @@ def classer_membres_par_production(livraisons):
         ]
     """
          # TODO : à compléter
-    pass
+    # Dictionnaire contenant le volume produit par chaque membre
+    volumes = {}
+
+    # Parcourir les livraisons
+    for livraison in livraisons:
+
+        # Identifier le membre
+        membre = livraison["membre_id"]
+
+        # Récupérer la quantité livrée
+        quantite = livraison["quantite"]
+
+        # Si le membre n'existe pas encore
+        if membre not in volumes:
+
+            # Initialiser son volume à zéro
+            volumes[membre] = 0
+
+        # Ajouter sa quantité au volume total
+        volumes[membre] += quantite
+
+    # Liste qui contiendra le classement
+    classement = []
+
+    # Transformer le dictionnaire en liste de dictionnaires
+    for membre, volume in volumes.items():
+
+        classement.append({
+            "membre_id": membre,
+            "volume_total": volume
+        })
+
+    # Trier la liste par volume décroissant
+    classement.sort(key=lambda x: x["volume_total"], reverse=True)
+
+    # Retourner le classement
+    return classement
+
 
 
 def calculer_statistiques_globales(livraisons, ventes):
@@ -194,7 +283,56 @@ def calculer_statistiques_globales(livraisons, ventes):
         sortie -> {"Manioc": {"volume_total": 100, "valeur_totale": 11000}}
     """
          # TODO : à compléter
-    pass
+    # Dictionnaire des statistiques par culture
+    statistiques = {}
+
+    # Parcourir toutes les livraisons
+    for livraison in livraisons:
+
+        # Lire la culture
+        culture = livraison["culture"]
+
+        # Lire la quantité
+        quantite = livraison["quantite"]
+
+        # Si cette culture n'existe pas encore
+        if culture not in statistiques:
+
+            # Créer les indicateurs
+            statistiques[culture] = {
+                "volume_total": 0,
+                "valeur_totale": 0
+            }
+
+        # Ajouter le volume livré
+        statistiques[culture]["volume_total"] += quantite
+
+    # Parcourir toutes les ventes
+    for vente in ventes:
+
+        # Lire la culture vendue
+        culture = vente["culture"]
+
+        # Lire la quantité vendue
+        quantite = vente["quantite"]
+
+        # Lire le prix négocié
+        prix = vente["prix_kg"]
+
+        # Si la culture n'existe pas encore
+        if culture not in statistiques:
+
+            # La créer
+            statistiques[culture] = {
+                "volume_total": 0,
+                "valeur_totale": 0
+            }
+
+        # Ajouter la valeur de cette vente
+        statistiques[culture]["valeur_totale"] += quantite * prix
+
+    # Retourner les statistiques
+    return statistiques
 
 
 def generer_indicateurs_rapport_bailleur(livraisons, ventes, paiements):
@@ -240,7 +378,48 @@ def generer_indicateurs_rapport_bailleur(livraisons, ventes, paiements):
                    "taux_regularite_paiements": 50, "nb_membres_actifs": 2}
     """
          # TODO : à compléter
-    pass
+         
+    # Calculer le volume total livré
+    volume_total = sum(l["quantite"] for l in livraisons)
+
+    # Calculer le montant total des ventes
+    montant_ventes = sum(
+        v["quantite"] * v["prix_kg"]
+        for v in ventes
+    )
+
+    # Récupérer les membres ayant livré
+    membres_actifs = {l["membre_id"] for l in livraisons}
+
+    # Récupérer les membres ayant reçu un paiement
+    membres_payes = {
+        p["membre_id"]
+        for p in paiements
+        if p["membre_id"] in membres_actifs
+    }
+
+    # Compter les membres actifs
+    nb_membres = len(membres_actifs)
+
+    # Éviter une division par zéro
+    if nb_membres == 0:
+
+        # Aucun membre actif
+        taux = 0
+
+    else:
+
+        # Calculer le pourcentage de membres payés
+        taux = round(len(membres_payes) / nb_membres * 100)
+
+    # Retourner les indicateurs du rapport
+    return {
+        "volume_total_periode": volume_total,
+        "montant_ventes_periode": montant_ventes,
+        "taux_regularite_paiements": taux,
+        "nb_membres_actifs": nb_membres
+    }
+
 
 
 def identifier_top_acheteur(ventes, acheteurs):
@@ -265,7 +444,53 @@ def identifier_top_acheteur(ventes, acheteurs):
         sortie    -> {"acheteur_nom": "Christiane Nkaya", "volume_total": 150}
     """
          # TODO : à compléter
-    pass
+    # Si aucune vente n'existe
+    if not ventes:
+
+        # Retourner un résultat vide
+        return {
+            "acheteur_nom": None,
+            "volume_total": 0
+        }
+
+    # Dictionnaire des volumes achetés
+    volumes = {}
+
+    # Parcourir les ventes
+    for vente in ventes:
+
+        # Lire l'identifiant de l'acheteur
+        identifiant = vente["acheteur_id"]
+
+        # Cumuler les quantités achetées
+        volumes[identifiant] = volumes.get(identifiant, 0) + vente["quantite"]
+
+    # Trouver l'acheteur ayant acheté le plus
+    meilleur_id = max(volumes, key=volumes.get)
+
+    # Récupérer son volume
+    meilleur_volume = volumes[meilleur_id]
+
+    # Initialiser le nom
+    nom = None
+
+    # Rechercher son nom dans la liste des acheteurs
+    for acheteur in acheteurs:
+
+        # Vérifier si l'identifiant correspond
+        if acheteur["id"] == meilleur_id:
+
+            # Récupérer le nom
+            nom = acheteur["nom"]
+
+            # Arrêter la recherche
+            break
+
+    # Retourner le meilleur acheteur
+    return {
+        "acheteur_nom": nom,
+        "volume_total": meilleur_volume
+    }
 
 
 # ========================================================================
