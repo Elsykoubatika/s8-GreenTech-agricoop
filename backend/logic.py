@@ -736,199 +736,102 @@ def valider_nouveau_membre(donnees):
 # ========================================================================
 
 def calculer_stock_disponible(livraisons, ventes):
-    """
-    Calcule la quantité disponible à la vente, par culture.
+    """Calcule le stock disponible pour chaque culture à partir des livraisons et des ventes."""
+    
+    # 1. Initialiser le stock à 0 pour chaque culture connue dans le référentiel des prix d'achat
+    stock = {culture: 0 for culture in PRIX_ACHAT_KG}
 
-    Paramètres :
-        livraisons : liste de dict avec "culture" (str) et "quantite" (int)
-        ventes     : liste de dict avec "culture" (str) et "quantite" (int)
+    # 2. Ajouter les quantités livrées au stock
+    for livraison in livraisons:
+        culture = livraison["culture"]  # récupère la culture concernée par cette livraison
+        if culture in stock:  # on ignore les cultures inconnues du référentiel
+            stock[culture] += livraison["quantite"]  # on ajoute la quantité livrée au stock existant
 
-    Retourne :
-        un dictionnaire {culture: quantite_disponible}, avec TOUTES les
-        cultures du référentiel PRIX_ACHAT_KG présentes (même à 0 — donc
-        toujours exactement 3 clés dans le résultat : "Manioc", "Maïs",
-        "Arachide", même si l'une d'elles n'a aucune livraison).
+    # 3. Soustraire les quantités vendues du stock
+    for vente in ventes:
+        culture = vente["culture"]  # récupère la culture concernée par cette vente
+        if culture in stock:  # on ignore les cultures inconnues du référentiel
+            stock[culture] -= vente["quantite"]  # on retire la quantité vendue du stock
 
-    Règle : stock disponible = somme des livraisons de cette culture
-            moins somme des ventes de cette culture.
-
-    Exemple :
-        livraisons = [{"culture": "Manioc", "quantite": 100}]
-        ventes     = [{"culture": "Manioc", "quantite": 30}]
-
-        Manioc : 100 - 30 = 70
-        Maïs et Arachide : aucune livraison ni vente -> 0
-
-        sortie -> {"Manioc": 70, "Maïs": 0, "Arachide": 0}
-    """
-         # TODO : à compléter
-    pass
+    return stock  # dictionnaire final : {culture: quantité disponible}
 
 
 def verifier_stock_avant_vente(vente, stock_disponible):
-    """
-    Vérifie qu'une vente demandée ne dépasse pas le stock réellement
-    disponible avant de l'accepter.
+    """Vérifie si la quantité demandée pour une vente est disponible en stock."""
+    culture = vente["culture"]  # culture concernée par la vente
+    quantite_demandee = vente["quantite"]  # quantité que le client souhaite acheter
+    quantite_dispo = stock_disponible.get(culture, 0)  # quantité réellement en stock (0 si culture absente)
 
-    Paramètres :
-        vente : dict avec "culture" (str) et "quantite" (int) —
-            la quantité qu'on cherche à vendre
-        stock_disponible : dict {culture: quantite_disponible}
-            (typiquement le résultat de calculer_stock_disponible, mais
-            cette fonction reçoit directement le dict — pas besoin de le
-            recalculer ici)
-
-    Retourne :
-        True  si vente["quantite"] <= stock_disponible.get(vente["culture"], 0)
-        False sinon
-
-    Exemples :
-        verifier_stock_avant_vente({"culture": "Manioc", "quantite": 100},
-                                    {"Manioc": 50})
-          -> False (100 > 50, stock insuffisant)
-
-        verifier_stock_avant_vente({"culture": "Manioc", "quantite": 50},
-                                    {"Manioc": 50})
-          -> True  (cas limite : égalité exacte, la vente est acceptée)
-    """
-         # TODO : à compléter
-    pass
+    # on renvoie True si le stock est suffisant, False sinon
+    return quantite_demandee <= quantite_dispo
 
 
 def calculer_marge_vente(vente):
-    """
-    Calcule la marge générée par une vente :
-        marge = (prix_kg - prix_achat_reference) * quantite
+    """Calcule la marge réalisée sur une vente donnée."""
+    culture = vente["culture"]  # culture vendue
+    quantite = vente["quantite"]  # quantité vendue
+    prix_kg = vente["prix_kg"]  # prix de vente au kilo
 
-    Paramètre :
-        vente : dict avec les clés :
-            - "culture"  (str, une des clés de PRIX_ACHAT_KG)
-            - "quantite" (int, en kg)
-            - "prix_kg"  (int, en FCFA — le prix RÉELLEMENT négocié pour
-              cette vente, pas forcément égal à PRIX_VENTE_KG)
+    prix_achat_reference = PRIX_ACHAT_KG[culture]  # prix d'achat de référence pour cette culture
 
-    Retourne :
-        marge (int, en FCFA). Utilisez PRIX_ACHAT_KG[vente["culture"]]
-        comme prix d'achat de référence. La marge peut être négative
-        (vente à perte), c'est un résultat valide, ne le bloquez pas.
+    # la marge = (prix de vente - prix d'achat) multiplié par la quantité vendue
+    marge = (prix_kg - prix_achat_reference) * quantite
 
-    Exemple :
-        vente = {"culture": "Manioc", "quantite": 150, "prix_kg": 220}
-        prix d'achat de référence du Manioc (PRIX_ACHAT_KG) = 150
-        marge = (220 - 150) * 150 = 70 * 150 = 10500
-
-        sortie -> 10500
-    """
-         # TODO : à compléter
-    pass
+    return marge
 
 
 def verifier_paiement_valide(paiement, solde_du):
-    """
-    NOUVELLE FONCTION — règle métier centrale du module Paiements : un
-    paiement ne peut jamais dépasser le solde réellement dû à un membre
-    (on ne peut pas "trop" payer quelqu'un).
+    """Vérifie qu'un paiement est valide par rapport au solde dû, et renvoie la liste des anomalies détectées."""
+    anomalies = []  # liste qui contiendra les messages d'erreur éventuels
+    montant = paiement["montant"]  # montant du paiement à vérifier
 
-    Paramètres :
-        paiement : dict avec "montant" (int)
-        solde_du : int (résultat de calculer_solde_membre pour ce membre)
+    # le montant doit être positif (un paiement nul ou négatif n'a pas de sens)
+    if montant <= 0:
+        anomalies.append("Le montant doit être strictement positif.")
 
-    Retourne :
-        une liste de chaînes de caractères décrivant chaque anomalie
-        détectée (liste VIDE si le paiement est valide).
+    # le montant payé ne doit pas dépasser ce qui est réellement dû
+    if montant > solde_du:
+        anomalies.append(f"Le montant dépasse le solde dû ({solde_du} FCFA).")
 
-    Règles à vérifier :
-        - "montant" doit être strictement positif
-          sinon ajouter : "Le montant doit être strictement positif."
-        - "montant" ne doit pas dépasser solde_du
-          sinon ajouter : "Le montant dépasse le solde dû ({solde_du} FCFA)."
-
-    Exemple :
-        paiement={"montant": 50000}, solde_du=20000
-        -> ["Le montant dépasse le solde dû (20000 FCFA)."]
-    """
-         # TODO : à compléter
-    pass
+    return anomalies  # liste vide = paiement valide, sinon liste des problèmes trouvés
 
 
 def calculer_moyenne_prix_vente(ventes, culture):
-    """
-    NOUVELLE FONCTION — calcule le prix de vente moyen réellement obtenu
-    pour une culture donnée, pour comparer avec le prix de référence
-    (utile pour négocier avec les acheteurs).
+    """Calcule le prix de vente moyen pondéré (par les quantités) pour une culture donnée."""
+    somme_ponderee = 0  # somme des (quantité x prix) pour chaque vente
+    somme_quantites = 0  # somme totale des quantités vendues
 
-    Paramètres :
-        ventes  : liste de dict avec "culture" (str), "quantite" (int), "prix_kg" (int)
-        culture : str — la culture pour laquelle on veut la moyenne
+    for vente in ventes:
+        if vente["culture"] == culture:  # on ne traite que les ventes de la culture demandée
+            somme_ponderee += vente["quantite"] * vente["prix_kg"]  # on accumule quantité x prix
+            somme_quantites += vente["quantite"]  # on accumule la quantité totale
 
-    Retourne :
-        la moyenne pondérée par quantité des prix de vente pour cette
-        culture (int, arrondi). Si aucune vente pour cette culture,
-        retourner 0.
+    # si aucune vente n'a été trouvée pour cette culture, on évite la division par zéro
+    if somme_quantites == 0:
+        return 0
 
-    Indication : moyenne pondérée = somme(quantite * prix_kg) / somme(quantite)
-    pour les ventes de la culture demandée uniquement (ignorez les ventes
-    des autres cultures).
-
-    Exemple :
-        ventes = [
-            {"culture": "Manioc", "quantite": 100, "prix_kg": 200},
-            {"culture": "Manioc", "quantite": 50,  "prix_kg": 230},
-            {"culture": "Maïs",   "quantite": 60,  "prix_kg": 280},  # ignorée : autre culture
-        ]
-        culture = "Manioc"
-
-        somme(quantite * prix_kg) = 100*200 + 50*230 = 20000 + 11500 = 31500
-        somme(quantite)           = 100 + 50 = 150
-        moyenne = round(31500 / 150) = round(210.0) = 210
-
-        sortie -> 210
-    """
-         # TODO : à compléter
-    pass
-
+    # moyenne pondérée = somme pondérée divisée par la quantité totale, arrondie à l'entier
+    return round(somme_ponderee / somme_quantites)
 
 # ========================================================================
 # ZONE D — Authentification (nouveau module)
 # ========================================================================
 
 def authentifier_utilisateur(nom_utilisateur, mot_de_passe, utilisateurs):
-    """
-    NOUVELLE FONCTION — vérifie les identifiants saisis sur l'écran de
-    connexion et retourne le profil de l'utilisateur s'ils sont corrects
-    (module Authentification, section 3.1 du FRD, scénario nominal
-    étapes 1 et 4).
+    """Vérifie les identifiants d'un utilisateur et renvoie ses informations si la connexion réussit."""
+    for utilisateur in utilisateurs:
+        # on compare le nom d'utilisateur et le mot de passe saisis avec ceux enregistrés
+        if utilisateur["nom_utilisateur"] == nom_utilisateur and utilisateur["mot_de_passe"] == mot_de_passe:
+            # si la correspondance est trouvée, on renvoie les infos utiles (sans le mot de passe)
+            return {
+                "nom_utilisateur": utilisateur["nom_utilisateur"],
+                "role": utilisateur["role"],
+                "nom_complet": utilisateur["nom_complet"],
+                "membre_id": utilisateur["membre_id"],
+            }
 
-    Paramètres :
-        nom_utilisateur : str — identifiant saisi
-        mot_de_passe    : str — mot de passe saisi
-        utilisateurs    : liste de dict, chacun avec les clés
-            "nom_utilisateur" (str), "mot_de_passe" (str), "role" (str),
-            "nom_complet" (str), "membre_id" (int ou None)
-
-    Retourne :
-        - si un utilisateur de la liste a EXACTEMENT ce nom_utilisateur
-          ET ce mot_de_passe : un dictionnaire avec les clés
-          "nom_utilisateur", "role", "nom_complet" et "membre_id"
-          — SANS la clé "mot_de_passe" (on ne renvoie jamais un mot de
-          passe, même correct, dans le résultat).
-        - si aucun utilisateur ne correspond : None
-
-    Exemple :
-        utilisateurs = [
-            {"nom_utilisateur": "smalonga", "mot_de_passe": "Secretaire2026",
-             "role": "Secrétaire", "nom_complet": "Sandra Malonga", "membre_id": 4}
-        ]
-
-        authentifier_utilisateur("smalonga", "Secretaire2026", utilisateurs)
-        -> {"nom_utilisateur": "smalonga", "role": "Secrétaire",
-            "nom_complet": "Sandra Malonga", "membre_id": 4}
-
-        authentifier_utilisateur("smalonga", "mauvais_mdp", utilisateurs)
-        -> None
-    """
-         # TODO : à compléter
-    pass
+    # aucun utilisateur trouvé correspondant aux identifiants -> échec de la connexion
+    return None
 
 
 def verifier_acces_role(role, action):
