@@ -835,28 +835,5 @@ def authentifier_utilisateur(nom_utilisateur, mot_de_passe, utilisateurs):
 
 
 def verifier_acces_role(role, action):
-    """
-    NOUVELLE FONCTION — vérifie qu'un rôle a le droit d'effectuer une
-    action donnée (règle métier RM-6 du FRD : accès refusé si hors du
-    rôle). Utilise le dictionnaire ACTIONS_PAR_ROLE défini en haut de ce
-    fichier — ne recopiez pas les permissions, lisez-les depuis cette
-    constante.
-
-    Paramètres :
-        role   : str — un des rôles définis dans ACTIONS_PAR_ROLE
-            (ex. "Trésorière"). Si ce rôle n'existe pas dans
-            ACTIONS_PAR_ROLE, considérez qu'il n'a aucun droit.
-        action : str — l'action demandée (ex. "enregistrer_paiement")
-
-    Retourne :
-        True  si action fait partie de la liste des actions autorisées
-              pour ce role dans ACTIONS_PAR_ROLE
-        False sinon (rôle inconnu, ou action non listée pour ce rôle)
-
-    Exemple :
-        verifier_acces_role("Trésorière", "enregistrer_paiement") -> True
-        verifier_acces_role("Trésorière", "enregistrer_vente")    -> False
-        verifier_acces_role("Livreur",    "tableau_de_bord")      -> False  (rôle inconnu)
-    """
-         # TODO : à compléter
-    pass
+    actions_autorisees = ACTIONS_PAR_ROLE.get(role, [])
+    return action in actions_autorisees
