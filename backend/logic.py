@@ -497,6 +497,12 @@ def identifier_top_acheteur(ventes, acheteurs):
 # ZONE B — Membres & Livraisons
 # ========================================================================
 
+# NOTE : PRIX_ACHAT_KG est un dictionnaire supposé défini ailleurs dans le
+# projet (ex. dans un module de constantes), qui associe chaque nom de
+# culture (str) à son prix d'achat au kilo (int, en FCFA).
+# Exemple attendu : PRIX_ACHAT_KG = {"Manioc": 150, "Maïs": 200, ...}
+
+
 def calculer_solde_membre(membre_id, livraisons, paiements):
     """
     Calcule ce qui est dû à un membre : valeur totale de ses livraisons
@@ -539,8 +545,33 @@ def calculer_solde_membre(membre_id, livraisons, paiements):
 
         sortie -> 23000
     """
-         # TODO : à compléter
-    pass
+    # Initialise la valeur totale des livraisons de ce membre à 0
+    valeur_livraisons = 0
+
+    # Parcourt toutes les livraisons reçues en paramètre
+    for livraison in livraisons:
+        # Ne traite que les livraisons appartenant au membre demandé
+        if livraison["membre_id"] == membre_id:
+            # Récupère le prix au kg de la culture concernée
+            prix_kg = PRIX_ACHAT_KG[livraison["culture"]]
+            # Ajoute la valeur de cette livraison (quantité * prix au kg) au total
+            valeur_livraisons += livraison["quantite"] * prix_kg
+
+    # Initialise le total déjà payé à ce membre à 0
+    total_paiements = 0
+
+    # Parcourt tous les paiements reçus en paramètre
+    for paiement in paiements:
+        # Ne traite que les paiements appartenant au membre demandé
+        if paiement["membre_id"] == membre_id:
+            # Ajoute le montant de ce paiement au total déjà versé
+            total_paiements += paiement["montant"]
+
+    # Le solde dû = valeur des livraisons moins ce qui a déjà été payé
+    solde = valeur_livraisons - total_paiements
+
+    # Retourne le solde final (peut être négatif dans un cas théorique)
+    return solde
 
 
 def detecter_membres_inactifs(membres, livraisons, jours_seuil=90):
@@ -570,8 +601,22 @@ def detecter_membres_inactifs(membres, livraisons, jours_seuil=90):
 
         sortie -> [{"membre_id": 2, "nom": "Sandra Malonga"}]
     """
-         # TODO : à compléter
-    pass
+    # Construit un ensemble (set) de tous les membre_id présents dans les livraisons
+    # (un set permet une recherche rapide d'appartenance)
+    ids_ayant_livre = {livraison["membre_id"] for livraison in livraisons}
+
+    # Initialise la liste des membres inactifs à retourner
+    membres_inactifs = []
+
+    # Parcourt chaque membre de la liste reçue
+    for membre in membres:
+        # Si l'id du membre n'apparaît dans aucune livraison, il est inactif
+        if membre["id"] not in ids_ayant_livre:
+            # Ajoute ce membre (au format attendu) à la liste des inactifs
+            membres_inactifs.append({"membre_id": membre["id"], "nom": membre["nom"]})
+
+    # Retourne la liste finale des membres inactifs
+    return membres_inactifs
 
 
 def detecter_anomalie_livraison(livraison):
@@ -605,9 +650,27 @@ def detecter_anomalie_livraison(livraison):
         livraison = {"membre_id": 1, "culture": "Manioc", "quantite": 100}
         sortie -> []
     """
+    # Initialise la liste des anomalies détectées (vide au départ)
     anomalies = []
-         # TODO : à compléter
-    pass
+
+    # Vérifie que la quantité est un nombre strictement positif
+    if livraison["quantite"] <= 0:
+        # Ajoute le message d'anomalie correspondant à la quantité invalide
+        anomalies.append("Quantité invalide : doit être strictement positive.")
+
+    # Vérifie que la culture indiquée existe bien dans le référentiel des prix
+    if livraison["culture"] not in PRIX_ACHAT_KG:
+        # Ajoute le message d'anomalie correspondant à la culture inconnue,
+        # en insérant dynamiquement le nom de la culture fautive
+        anomalies.append(f"Culture inconnue : {livraison['culture']}.")
+
+    # Vérifie que membre_id n'est pas vide, None ou 0 (valeur "fausse" en Python)
+    if not livraison["membre_id"]:
+        # Ajoute le message d'anomalie correspondant à l'absence de membre
+        anomalies.append("Aucun membre rattaché à cette livraison.")
+
+    # Retourne la liste complète des anomalies (vide si tout est correct)
+    return anomalies
 
 
 def generer_recu(membre_nom, montant):
@@ -628,8 +691,13 @@ def generer_recu(membre_nom, montant):
         generer_recu("Jean Mabiala", 0)
           -> "Aucun montant à verser pour Jean Mabiala."
     """
-         # TODO : à compléter
-    pass
+    # Si le montant est nul ou négatif, il n'y a rien à verser
+    if montant <= 0:
+        # Retourne le message indiquant qu'aucun versement n'a lieu
+        return f"Aucun montant à verser pour {membre_nom}."
+
+    # Sinon, retourne le reçu formaté avec le nom du membre et le montant versé
+    return f"Reçu - {membre_nom} : paiement de {montant} FCFA effectué."
 
 
 def calculer_historique_paiements_membre(membre_id, paiements):
@@ -653,8 +721,18 @@ def calculer_historique_paiements_membre(membre_id, paiements):
         sortie    -> [{"membre_id": 1, "montant": 15000, "date": "2026-07-14"},
                       {"membre_id": 1, "montant": 5000, "date": "2026-07-05"}]
     """
-         # TODO : à compléter
-    pass
+    # Filtre uniquement les paiements appartenant au membre demandé
+    paiements_membre = [p for p in paiements if p["membre_id"] == membre_id]
+
+    # Trie la liste filtrée par date décroissante (le plus récent en premier).
+    # Comme les dates sont au format "AAAA-MM-JJ", un tri alphabétique inversé
+    # correspond exactement à un tri chronologique inversé.
+    paiements_membre_tries = sorted(
+        paiements_membre, key=lambda p: p["date"], reverse=True
+    )
+
+    # Retourne la liste triée
+    return paiements_membre_tries
 
 
 def rechercher_membre_similaire(nom_complet, membres):
@@ -691,13 +769,27 @@ def rechercher_membre_similaire(nom_complet, membres):
         rechercher_membre_similaire("Marie Koumba", membres)
         -> None   (aucun membre existant ne porte ce nom)
     """
-         # TODO : à compléter
-    pass
+    # Normalise le nom saisi : minuscules, espaces multiples réduits à un seul,
+    # et espaces de début/fin retirés (le .split()/.join() gère tout ça d'un coup)
+    nom_normalise = " ".join(nom_complet.lower().split())
+
+    # Parcourt tous les membres existants pour chercher une correspondance
+    for membre in membres:
+        # Normalise de la même façon le nom du membre existant
+        nom_membre_normalise = " ".join(membre["nom"].lower().split())
+
+        # Si les deux noms normalisés sont strictement identiques, on a trouvé le doublon
+        if nom_membre_normalise == nom_normalise:
+            # Retourne immédiatement le membre correspondant
+            return membre
+
+    # Si aucun membre ne correspond après avoir tout parcouru, retourne None
+    return None
 
 
 def valider_nouveau_membre(donnees):
     """
-     — vérifie que le formulaire de création d'un
+    Vérifie que le formulaire de création d'un
     nouveau membre est complet avant de l'enregistrer.
 
     Paramètre :
@@ -727,8 +819,31 @@ def valider_nouveau_membre(donnees):
         donnees = {"nom": "Koumba", "prenom": "Marie", "village": "Séo", "contact": "064111222"}
         sortie -> []
     """
-         # TODO : à compléter
-    pass
+    # Initialise la liste des anomalies détectées (vide au départ)
+    anomalies = []
+
+    # Vérifie que le champ "nom" n'est pas vide une fois les espaces de bord retirés
+    if not donnees.get("nom", "").strip():
+        # Ajoute le message d'anomalie correspondant au nom manquant
+        anomalies.append("Le nom est obligatoire.")
+
+    # Vérifie que le champ "prenom" n'est pas vide une fois les espaces de bord retirés
+    if not donnees.get("prenom", "").strip():
+        # Ajoute le message d'anomalie correspondant au prénom manquant
+        anomalies.append("Le prénom est obligatoire.")
+
+    # Vérifie que le champ "village" n'est pas vide une fois les espaces de bord retirés
+    if not donnees.get("village", "").strip():
+        # Ajoute le message d'anomalie correspondant au village manquant
+        anomalies.append("Le village est obligatoire.")
+
+    # Vérifie que le champ "contact" n'est pas vide une fois les espaces de bord retirés
+    if not donnees.get("contact", "").strip():
+        # Ajoute le message d'anomalie correspondant au contact manquant
+        anomalies.append("Le contact est obligatoire.")
+
+    # Retourne la liste complète des anomalies (vide si le formulaire est valide)
+    return anomalies
 
 
 # ========================================================================
