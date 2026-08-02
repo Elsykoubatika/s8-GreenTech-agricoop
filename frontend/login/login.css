@@ -259,3 +259,112 @@ main {
     font-size: 0.9rem;
     text-align: center;
 }
+
+/* ===========================
+   PC (≤1024px)
+=========================== */
+@media (max-width: 1024px) {
+    .left {
+        width: 45%;
+    }
+
+    .right {
+        width: 55%;
+    }
+
+    .left-image {
+        height: 300px;
+    }
+}
+
+/* ===========================
+   Tablette (<= 768px)
+=========================== */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: var(--space-md);
+        background: linear-gradient(
+            135deg,
+            var(--vert-principal) 0%,
+            #0f3d26 100%
+        );
+    }
+
+    .left {
+        display: none;
+    }
+
+    .right {
+        width: 100%;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-box {
+        width: 100%;
+        max-width: 420px;
+        margin: 0;
+    }
+
+    #form-login {
+        padding: 1.5rem;
+        border-radius: var(--radius-lg);
+    }
+
+    .login-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .login-header p {
+        font-size: 0.9rem;
+    }
+
+    #form-login input {
+        height: 45px;
+        font-size: 0.9rem;
+    }
+
+    #form-login button {
+        height: 48px;
+    }
+}
+
+/* ===========================
+    Telephone Mobile (<= 480px)
+=========================== */
+@media (max-width: 480px) {
+    main {
+        padding: var(--space-sm);
+    }
+
+    #form-login {
+        padding: 1.2rem;
+    }
+
+    .login-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .avatar i {
+        font-size: 22px;
+    }
+
+    .login-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .login-options a {
+        align-self: flex-end;
+    }
+}
