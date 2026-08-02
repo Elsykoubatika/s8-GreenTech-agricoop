@@ -9,6 +9,23 @@
 <body>
 
   <!-- NAVIGATION — TODO (Dev FS2) -->
+   <nav>
+      <div class="navigation1">
+        <ul>
+          <li><a href="../dashboard/dashboard.html">Tableau de bord</a></li>
+          <li><a href="../livraisons/livraisons.html">Livraisons</a></li>
+          <li><a href="../membres/membres.html">Membres</a></li>
+          <li><a href="../paiements/paiements.html">Paiements </a></li>
+          <li><a href="../ventes/ventes.html">Ventes</a></li>
+          <li><a href="../statistiques/statistiques.html">Statistiques</a></li>
+        </ul>
+      </div>
+    <div class="navigation2">
+      <ul>
+         <li><a href="*">Déconnection</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <main>
     <!-- =====================================================================
@@ -20,7 +37,9 @@
 
          *** NE PAS MODIFIER l'id ci-dessous ***
          ===================================================================== -->
-    <div id="acces-refuse-comptes" hidden></div>
+    <div id="acces-refuse-comptes" hidden>
+      <p>Vous n'avez pas l'autorisation d'accéder à cette page.</p>
+    </div>
 
     <!-- =====================================================================
          FORMULAIRE NOUVEAU COMPTE — TODO (Dev FS2)
@@ -54,12 +73,19 @@
 
          *** NE PAS MODIFIER l'id ci-dessous ***
          ===================================================================== -->
-    <table>
-      <thead>
-        <!-- TODO (Dev FS2) : en-têtes (Nom d'utilisateur, Nom complet, Rôle) -->
-      </thead>
-      <tbody id="liste-comptes"></tbody>
-    </table>
+    <div class="table-card">
+      <h4>Liste des comptes</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom d'utilisateur</th>
+            <th>Nom complet</th>
+            <th>Rôle</th>
+          </tr>
+        </thead>
+        <tbody id="liste-comptes"></tbody>
+      </table>
+    </div>
   </main>
 
   <!-- NE PAS MODIFIER — scripts de connexion au backend -->
