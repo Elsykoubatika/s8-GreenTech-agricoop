@@ -93,3 +93,17 @@ main {
   background: #174c31;
   transform: translateY(-1px);
 }
+@media (max-width: 900px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  main {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+
+}

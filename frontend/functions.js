@@ -72,6 +72,10 @@ function filtrerMembresParStatut(membres, statut) {
    Astuce     : "Jean Mabiala".toLowerCase().includes("jean") -> true */
 function rechercherMembreParNom(membres, texte) {
   // TODO : à compléter
+    return membres.filter(membre =>
+        membre.nom.toLowerCase().includes(texte.toLowerCase())
+    );
+
 }
 
 
@@ -88,6 +92,31 @@ function rechercherMembreParNom(membres, texte) {
                                             "Le contact est obligatoire."]} */
 function validerFormulaireNouveauMembre(donnees) {
   // TODO : à compléter
+    event.preventDefault();
+
+    const nom=document.getElementById("nm-nom").value.trim();
+
+    const village=document.getElementById("nm-village").value.trim();
+
+    const telephone=document.getElementById("nm-contact").value.trim();
+
+    if(nom===""){
+        alert("Le nom est obligatoire.");
+        return;
+    }
+
+    if(village===""){
+        alert("L'email est obligatoire.");
+        return;
+    }
+
+    if(telephone===""){
+        alert("Le téléphone est obligatoire.");
+        return;
+    }
+
+    alert("Nouveau membre enregistré.");
+
 }
 
 
@@ -131,6 +160,33 @@ function trierLivraisonsParDate(livraisons) {
    Retourne : true si tout est valide, false sinon. */
 function validerFormulairePaiement(donnees) {
   // TODO : à compléter
+  event.preventDefault();
+
+    const montant = document.getElementById("p-montant").value;
+
+    const mode = document.getElementById("p-mode-paiement").value;
+    
+    const membres = document.getElementById("p-membre").value;
+
+    if (montant === "") {
+        alert("Veuillez saisir le montant.");
+        return;
+    }
+
+    else if (mode === "") {
+        alert("Veuillez choisir un mode de paiement.");
+        return;
+    }
+    else if (membres === ""){
+      alert ("Veillez selctioner un membre !")
+    }else{
+      calculerTotalPaiement();
+    }
+
+    
+
+    alert("Paiement enregistré avec succès.");
+
 }
 
 
@@ -142,6 +198,48 @@ function validerFormulairePaiement(donnees) {
    Exemple   : calculerTotalPaiements([{montant:5000},{montant:3000}]) -> 8000 */
 function calculerTotalPaiements(paiements) {
   // TODO : à compléter
+    const montant = parseFloat(document.getElementById("p-montant").value) || 0;
+
+    const total = p-montant + total-paiements;
+
+    document.getElementById("total-paiements").value = total.toFixed(2);
+
+    return total;
+
+}
+
+/*******************************
+ * GESTION DES MEMBRES
+ *******************************/
+
+// Validation du formulaire membre
+function validerFormulaireMembre(event){
+
+    event.preventDefault();
+
+    const nom=document.getElementById("nom").value.trim();
+
+    const email=document.getElementById("email").value.trim();
+
+    const telephone=document.getElementById("telephone").value.trim();
+
+    if(nom===""){
+        alert("Le nom est obligatoire.");
+        return;
+    }
+
+    if(email===""){
+        alert("L'email est obligatoire.");
+        return;
+    }
+
+    if(telephone===""){
+        alert("Le téléphone est obligatoire.");
+        return;
+    }
+
+    alert("Nouveau membre enregistré.");
+
 }
 
 
