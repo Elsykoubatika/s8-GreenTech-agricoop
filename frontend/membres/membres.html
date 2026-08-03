@@ -8,8 +8,25 @@
 </head>
 <body>
 
-  <!-- NAVIGATION — TODO (Dev FS2) -->
-
+  <header class="sidebar">
+    <nav>
+      <div class="navigation1">
+        <ul>
+          <li><a href="../dashboard/dashboard.html">Tableau de bord</a></li>
+          <li><a href="../livraisons/livraisons.html">Livraisons</a></li>
+          <li><a href="../membres/membres.html">Membres</a></li>
+          <li><a href="../paiements/paiements.html">Paiements </a></li>
+          <li><a href="../ventes/ventes.html">Ventes</a></li>
+          <li><a href="../statistiques/statistiques.html">Statistiques</a></li>
+        </ul>
+      </div>
+    <div class="navigation2">
+      <ul>
+         <li><a href="*">Déconnection</a></li>
+      </ul>
+    </div>
+  </nav>
+  </header>
   <main>
     <!-- =====================================================================
          FILTRES — TODO (Dev FS2)
@@ -18,6 +35,8 @@
 
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
+    <h3>MEMBRES</h3>
+    <h4>Filtre par statut</h4>
     <select id="filtre-statut">
       <option value="">Tous</option>
       <option value="À jour">À jour</option>
@@ -45,11 +64,16 @@
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
     <form id="form-nouveau-membre">
-      <input type="text" id="nm-prenom" placeholder="Prénom">
-      <input type="text" id="nm-nom" placeholder="Nom">
-      <select id="nm-village"><option value="">-- Choisir un village --</option></select>
-      <input type="text" id="nm-contact" placeholder="Contact (téléphone)">
-      <button type="submit">Créer le membre</button>
+      <h3>Nouveau Membre</h3>
+      <label for="last_name">Nom</label>
+      <input type="text" id="nm-prenom" class="for_b" placeholder="Prénom">
+      <label for="name"> Prénom</label>
+      <input type="text" id="nm-nom"  class="for" placeholder="Nom">
+      <label for="Village">Village</label>
+      <select id="nm-village"  class="for"><option value="">-- Choisir un village --</option></select>
+      <label for="telephone" >Téléphone</label>
+      <input type="text" id="nm-contact" placeholder="Contact (téléphone)"  class="for_b">
+      <button type="submit" class="btn_sub">Créer le membre</button>
     </form>
 
     <div id="erreurs-nouveau-membre" hidden></div>
