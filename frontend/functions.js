@@ -56,6 +56,10 @@ function compterJoursActifs(livraisonsParJour, seuil) {
                 .statut_cotisation est égal au statut demandé. */
 function filtrerMembresParStatut(membres, statut) {
   // TODO : à compléter
+  if (statut === "") {
+    return membres;
+  }
+  return membres.filter(membre => membre.statut_cotisation === statut);
 }
 
 

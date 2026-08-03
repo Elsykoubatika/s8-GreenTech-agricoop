@@ -9,7 +9,25 @@
 <body>
 
   <!-- NAVIGATION — TODO (Dev FS4) -->
-
+   <header class="sidebar">
+    <nav>
+      <div class="navigation1">
+        <ul>
+          <li><a href="../dashboard/dashboard.html">Tableau de bord</a></li>
+          <li><a href="../livraisons/livraisons.html">Livraisons</a></li>
+          <li><a href="../membres/membres.html">Membres</a></li>
+          <li><a href="../paiements/paiements.html">Paiements </a></li>
+          <li><a href="../ventes/ventes.html">Ventes</a></li>
+          <li><a href="../statistiques/statistiques.html">Statistiques</a></li>
+        </ul>
+      </div>
+    <div class="navigation2">
+      <ul>
+         <li><a href="*">Déconnection</a></li>
+      </ul>
+    </div>
+  </nav>
+  </header>
   <main>
     <!-- =====================================================================
          FORMULAIRE DE PAIEMENT — TODO (Dev FS4)
@@ -24,22 +42,29 @@
         <option value="Espèces">Espèces</option>
         <option value="Mobile Money">Mobile Money</option>
       </select>
-      <button type="submit">Enregistrer</button>
+      <button type="submit"class="p-btn" >Enregistrer</button>
     </form>
 
-    <div id="message-erreur-paiement" hidden></div>
-    <div id="message-succes-paiement" hidden></div>
+    <div id="message-erreur-paiement" hidden>Impossible d'exécuter le paiement.</div>
+    <div id="message-succes-paiement" hidden>Paiement enregistré avec succès.</div>
 
     <!-- =====================================================================
          TOTAL ET HISTORIQUE — TODO (Dev FS4)
 
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
-    <div id="total-paiements"></div>
+    <div id="total-paiements">
+      le total des paiements enregistrés : <span id="total-montant">0</span> FCFA
+    </div>
 
     <table>
       <thead>
         <!-- TODO (Dev FS4) : en-têtes (Membre, Montant, Mode de paiement, Date) -->
+         <tr>
+          <th>Membre</th>
+          <th>Montant</th>
+          <th>Mode de paiement</th>
+          <th>Date</th>
       </thead>
       <tbody id="liste-paiements"></tbody>
     </table>
