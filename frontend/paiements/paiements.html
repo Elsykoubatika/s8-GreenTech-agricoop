@@ -29,12 +29,17 @@
   </nav>
   </header>
   <main>
+    <div class="page-header">
+      <h3>Paiements</h3>
+      <p>Enregistrez et consultez l’historique des paiements.</p>
+    </div>
+
     <!-- =====================================================================
          FORMULAIRE DE PAIEMENT — TODO (Dev FS4)
 
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
-    <form id="form-paiement">
+    <form id="form-paiement" class="payment-form">
       <select id="p-membre"><option value="">-- Choisir un membre --</option></select>
       <input type="number" id="p-montant" min="1" placeholder="Montant (FCFA)">
       <select id="p-mode-paiement">
@@ -42,7 +47,7 @@
         <option value="Espèces">Espèces</option>
         <option value="Mobile Money">Mobile Money</option>
       </select>
-      <button type="submit"class="p-btn" >Enregistrer</button>
+      <button type="submit" class="p-btn">Enregistrer</button>
     </form>
 
     <div id="message-erreur-paiement" hidden>Impossible d'exécuter le paiement.</div>
@@ -53,21 +58,23 @@
 
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
-    <div id="total-paiements">
-      le total des paiements enregistrés : <span id="total-montant">0</span> FCFA
+    <div id="total-paiements" class="summary-card">
+      Le total des paiements enregistrés : <span id="total-montant">0</span> FCFA
     </div>
 
-    <table>
-      <thead>
-        <!-- TODO (Dev FS4) : en-têtes (Membre, Montant, Mode de paiement, Date) -->
-         <tr>
-          <th>Membre</th>
-          <th>Montant</th>
-          <th>Mode de paiement</th>
-          <th>Date</th>
-      </thead>
-      <tbody id="liste-paiements"></tbody>
-    </table>
+    <div class="table-card">
+      <table class="payment-table">
+        <thead>
+          <tr>
+            <th>Membre</th>
+            <th>Montant</th>
+            <th>Mode de paiement</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="liste-paiements"></tbody>
+      </table>
+    </div>
   </main>
 
   <!-- NE PAS MODIFIER — scripts de connexion au backend -->

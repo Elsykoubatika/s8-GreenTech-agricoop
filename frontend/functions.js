@@ -198,13 +198,12 @@ function validerFormulairePaiement(donnees) {
    Exemple   : calculerTotalPaiements([{montant:5000},{montant:3000}]) -> 8000 */
 function calculerTotalPaiements(paiements) {
   // TODO : à compléter
-    const montant = parseFloat(document.getElementById("p-montant").value) || 0;
+  const montant = parseFloat(document.getElementById("p-montant").value) || 0;
+  let caisse = parseFloat(document.getElementById("total-montant").textContent) || 0;
+  const total = montant + caisse;
+  document.getElementById("total-montant").textContent = total.toFixed(2);
 
-    const total = p-montant + total-paiements;
-
-    document.getElementById("total-paiements").value = total.toFixed(2);
-
-    return total;
+  return total;
 
 }
 
