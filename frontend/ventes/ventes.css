@@ -1,0 +1,77 @@
+/* =========================================================
+   ventes.html — styles spécifiques à cette page
+   uniquement pour le tableau des ventes
+   ========================================================= */
+
+/* ---------- cartes stock ---------- */
+#cartes-stock{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:16px;
+  margin-bottom:24px;
+}
+@media (max-width:768px){
+  #cartes-stock{ grid-template-columns:1fr; }
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--paper-line, #D8CFB6);
+  border-radius:8px;
+  padding:18px 20px;
+}
+
+/* ---------- badge (statut sur chaque carte) ---------- */
+.badge{
+  display:inline-block;
+  font-size:11px;
+  font-weight:600;
+  padding:4px 12px;
+  border-radius:20px;
+  margin-bottom:10px;
+}
+.badge-actif{ background:#E8F5E9; color:#1E5E3A; }
+.badge-en-attente{ background:#FEF3C7; color:#F59E0B; }
+.badge-en-retard{ background:#FEE2E2; color:#EF4444; }
+
+/* ---------- jauge de stock ---------- */
+.barre-stock-fond{
+  width:100%;
+  height:8px;
+  background:#F3F4F6;
+  border-radius:4px;
+  overflow:hidden;
+  margin-top:10px;
+}
+.barre-stock-remplissage{
+  height:100%;
+  background:var(--vert-secondaire, #4CAF50);
+  border-radius:4px;
+}
+
+/* ---------- tableau des ventes ---------- */
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 1px 2px rgba(31,41,55,.06);
+}
+thead th{
+  text-align:left;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  color:#687280;
+  padding:12px 14px;
+  border-bottom:1px solid #F3F4F6;
+  background:#F9FAFB;
+}
+#liste-ventes td{
+  padding:14px;
+  border-bottom:1px solid #F3F4F6;
+  font-size:14px;
+}
+#liste-ventes tr:last-child td{ border-bottom:none; }
+#liste-ventes tr:hover{ background:#F5F2E9; } 
