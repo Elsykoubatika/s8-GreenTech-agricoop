@@ -49,7 +49,8 @@ function validerFormulaireLogin(donnees) {
    Exemple    : compterJoursActifs({"2026-07-08": 135, "2026-07-09": 60}, 100) -> 1
    Astuce     : Object.values(livraisonsParJour) donne un tableau des quantités. */
 function compterJoursActifs(livraisonsParJour, seuil) {
-    // TODO : à compléter
+    const quantites = Object.values(livraisonsParJour);
+    return quantites.filter((qte) => qte > seuil).length;
 }
 
 /* [Dev FS2 — Membres — niveau S8 : tableau .filter]
@@ -59,11 +60,10 @@ function compterJoursActifs(livraisonsParJour, seuil) {
    Retourne   : un nouveau tableau ne contenant que les membres dont
                 .statut_cotisation est égal au statut demandé. */
 function filtrerMembresParStatut(membres, statut) {
-  // TODO : à compléter
-  if (statut === "") {
-    return membres;
-  }
-  return membres.filter(membre => membre.statut_cotisation === statut);
+    if (statut === '') {
+        return membres;
+    }
+    return membres.filter((membre) => membre.statut_cotisation === statut);
 }
 
 /* [Dev FS2 — Membres — niveau S8 : tableau .filter + méthode de chaîne]
@@ -74,11 +74,9 @@ function filtrerMembresParStatut(membres, statut) {
                 tous les membres tels quels.
    Astuce     : "Jean Mabiala".toLowerCase().includes("jean") -> true */
 function rechercherMembreParNom(membres, texte) {
-  // TODO : à compléter
-    return membres.filter(membre =>
-        membre.nom.toLowerCase().includes(texte.toLowerCase())
+    return membres.filter((membre) =>
+        membre.nom.toLowerCase().includes(texte.toLowerCase()),
     );
-
 }
 
 /* [Dev FS2 — Membres — niveau S7 : conditions simples — NOUVEAU]
@@ -93,32 +91,25 @@ function rechercherMembreParNom(membres, texte) {
               -> {valide: false, erreurs: ["Le prénom est obligatoire.",
                                             "Le contact est obligatoire."]} */
 function validerFormulaireNouveauMembre(donnees) {
-  // TODO : à compléter
-    event.preventDefault();
+    let erreurs = [];
 
-    const nom=document.getElementById("nm-nom").value.trim();
-
-    const village=document.getElementById("nm-village").value.trim();
-
-    const telephone=document.getElementById("nm-contact").value.trim();
-
-    if(nom===""){
-        alert("Le nom est obligatoire.");
-        return;
+    if (!donnees.nom || donnees.nom.trim() === '') {
+        erreurs.push('Le nom est obligatoire.');
+    }
+    if (!donnees.prenom || donnees.prenom.trim() === '') {
+        erreurs.push('Le prénom est obligatoire.');
+    }
+    if (!donnees.village || donnees.village.trim() === '') {
+        erreurs.push('Le village est obligatoire.');
+    }
+    if (!donnees.contact || donnees.contact.trim() === '') {
+        erreurs.push('Le contact est obligatoire.');
     }
 
-    if(village===""){
-        alert("L'email est obligatoire.");
-        return;
-    }
-
-    if(telephone===""){
-        alert("Le téléphone est obligatoire.");
-        return;
-    }
-
-    alert("Nouveau membre enregistré.");
-
+    return {
+        valide: erreurs.length === 0,
+        erreurs: erreurs,
+    };
 }
 
 /* [Dev FS3 — Livraisons — niveau S7 : conditions imbriquées]
@@ -132,7 +123,13 @@ function validerFormulaireNouveauMembre(donnees) {
    Retourne : true si tout est valide, false sinon.
    Astuce   : Number("abc") vaut NaN ; Number("40") vaut 40. */
 function validerFormulaireLivraison(donnees) {
-    // TODO : à compléter
+    const qte = Number(donnees.quantite);
+
+    if (!donnees.membre_id) return false;
+    if (!donnees.culture || donnees.culture.trim() === '') return false;
+    if (isNaN(qte) || qte <= 0) return false;
+
+    return true;
 }
 
 /* [Dev FS3 — Livraisons — niveau S8 : tableau .sort]
@@ -143,7 +140,7 @@ function validerFormulaireLivraison(donnees) {
    Astuce    : au format "AAAA-MM-JJ", comparer les chaînes fonctionne
                directement (ordre alphabétique = ordre chronologique). */
 function trierLivraisonsParDate(livraisons) {
-    // TODO : à compléter
+    return [...livraisons].sort((a, b) => b.date.localeCompare(a.date));
 }
 
 /* [Dev FS4 — Paiements — niveau S7 : conditions imbriquées]
@@ -158,34 +155,17 @@ function trierLivraisonsParDate(livraisons) {
      - mode_paiement doit être "Espèces" ou "Mobile Money"
    Retourne : true si tout est valide, false sinon. */
 function validerFormulairePaiement(donnees) {
-  // TODO : à compléter
-  event.preventDefault();
+    const montant = Number(donnees.montant);
 
-    const montant = document.getElementById("p-montant").value;
+    if (!donnees.membre_id) return false;
+    if (isNaN(montant) || montant <= 0) return false;
+    if (
+        donnees.mode_paiement !== 'Espèces' &&
+        donnees.mode_paiement !== 'Mobile Money'
+    )
+        return false;
 
-    const mode = document.getElementById("p-mode-paiement").value;
-    
-    const membres = document.getElementById("p-membre").value;
-
-    if (montant === "") {
-        alert("Veuillez saisir le montant.");
-        return;
-    }
-
-    else if (mode === "") {
-        alert("Veuillez choisir un mode de paiement.");
-        return;
-    }
-    else if (membres === ""){
-      alert ("Veillez selctioner un membre !")
-    }else{
-      calculerTotalPaiement();
-    }
-
-    
-
-    alert("Paiement enregistré avec succès.");
-
+    return true;
 }
 
 /* [Dev FS4 — Paiements — niveau S7/S8 : boucle + accumulateur]
@@ -195,49 +175,38 @@ function validerFormulairePaiement(donnees) {
    Retourne  : un nombre (la somme de tous les montants).
    Exemple   : calculerTotalPaiements([{montant:5000},{montant:3000}]) -> 8000 */
 function calculerTotalPaiements(paiements) {
-  // TODO : à compléter
-    const montant = parseFloat(document.getElementById("p-montant").value) || 0;
-
-    const total = p-montant + total-paiements;
-
-    document.getElementById("total-paiements").value = total.toFixed(2);
-
-    return total;
-
+    return paiements.reduce((total, p) => total + p.montant, 0);
 }
-
 /*******************************
  * GESTION DES MEMBRES
  *******************************/
 
 // Validation du formulaire membre
-function validerFormulaireMembre(event){
-
+function validerFormulaireMembre(event) {
     event.preventDefault();
 
-    const nom=document.getElementById("nom").value.trim();
+    const nom = document.getElementById('nom').value.trim();
 
-    const email=document.getElementById("email").value.trim();
+    const email = document.getElementById('email').value.trim();
 
-    const telephone=document.getElementById("telephone").value.trim();
+    const telephone = document.getElementById('telephone').value.trim();
 
-    if(nom===""){
-        alert("Le nom est obligatoire.");
+    if (nom === '') {
+        alert('Le nom est obligatoire.');
         return;
     }
 
-    if(email===""){
+    if (email === '') {
         alert("L'email est obligatoire.");
         return;
     }
 
-    if(telephone===""){
-        alert("Le téléphone est obligatoire.");
+    if (telephone === '') {
+        alert('Le téléphone est obligatoire.');
         return;
     }
 
-    alert("Nouveau membre enregistré.");
-
+    alert('Nouveau membre enregistré.');
 }
 
 /* [Dev FS5 — Ventes & Stock — niveau S7/S8 : condition sur un nombre]
@@ -249,7 +218,9 @@ function validerFormulaireMembre(event){
      - 50 kg ou plus       -> "Disponible"
    Retourne : une chaîne de caractères. */
 function getBadgeStock(quantiteDisponible) {
-    // TODO : à compléter
+    if (quantiteDisponible <= 0) return 'Épuisé';
+    if (quantiteDisponible < 50) return 'Stock faible';
+    return 'Disponible';
 }
 
 /* [Dev FS5 — fonction transverse — niveau S8 : propriétés d'objet + formatage]
@@ -259,7 +230,7 @@ function getBadgeStock(quantiteDisponible) {
    Retourne  : une chaîne de caractères, le nombre suivi de " FCFA".
    Exemple   : formaterMontant(23000) -> "23000 FCFA" */
 function formaterMontant(montant) {
-    // TODO : à compléter
+    return montant + ' FCFA';
 }
 
 /* [Dev FS6 — Statistiques — niveau S8 : tableau .sort]
@@ -268,7 +239,7 @@ function formaterMontant(montant) {
    Paramètre : classement (tableau d'objets), chaque élément a .volume_total (nombre)
    Retourne  : le tableau trié par .volume_total décroissant. */
 function trierClassementParVolume(classement) {
-    // TODO : à compléter
+    return [...classement].sort((a, b) => b.volume_total - a.volume_total);
 }
 
 /* [Dev FS6 — fonction transverse — niveau S8 : propriétés d'objet + formatage]
@@ -278,7 +249,8 @@ function trierClassementParVolume(classement) {
    Retourne  : une chaîne au format "12/07/2026".
    Astuce    : dateStr.split("-") donne ["2026", "07", "12"]. */
 function formaterDate(dateStr) {
-    // TODO : à compléter
+    const parties = dateStr.split('-');
+    return `${parties[2]}/${parties[1]}/${parties[0]}`;
 }
 
 /* NE PAS MODIFIER — rend vos fonctions accessibles à main.js et aux tests */

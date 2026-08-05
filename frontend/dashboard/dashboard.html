@@ -1,57 +1,256 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgriCoop Connect — Tableau de bord</title>
-  <link rel="stylesheet" href="dashboard.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AgriCoop Connect — Tableau de bord</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+        <link rel="stylesheet" href="dashboard.css" />
+    </head>
+    <body>
+        <div class="container">
+            <aside class="sidebar" id="sidebar">
+                <div class="logo">
+                    <img
+                        src="../assets/logo.png"
+                        alt="Logo Agricoop"
+                        width="150px"
+                    />
+                </div>
 
-  <!-- =====================================================================
-       NAVIGATION — TODO (Dev FS1)
-       Construire un menu de navigation vers les 8 pages du site.
-       Structure attendue : <nav> avec liens vers les autres modules.
-       Doit inclure un menu burger pour mobile.
-       ===================================================================== -->
+                <nav class="menu">
+                    <a
+                        href="../dashboard/dashboard.html"
+                        class="menu-lien active"
+                    >
+                        <i class="fas fa-chart-line"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                    <a href="../membres/membres.html" class="menu-lien">
+                        <i class="fas fa-users"></i>
+                        <span>Membres</span>
+                    </a>
+                    <a href="../livraisons/livraisons.html" class="menu-lien">
+                        <i class="fas fa-truck"></i>
+                        <span>Livraisons</span>
+                    </a>
+                    <a href="../paiements/paiements.html" class="menu-lien">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Paiements</span>
+                    </a>
+                    <a href="../ventes/ventes.html" class="menu-lien">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                        <span>Ventes</span>
+                    </a>
+                    <a
+                        href="../statistiques/statistiques.html"
+                        class="menu-lien"
+                    >
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Statistiques</span>
+                    </a>
+                    <a href="../comptes/comptes.html" class="menu-lien">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Comptes</span>
+                    </a>
 
-  <main>
-    <!-- =====================================================================
-         CARTES INDICATEURS — TODO (Dev FS1)
-         Construire 4 cartes affichant les indicateurs clés du tableau de bord.
-         Structure attendue : conteneur avec 4 éléments (stock, montant dû,
-         membres actifs, livraisons du mois).
-         Layout : Flexbox ou Grid, responsive (1 colonne mobile, 2-4 desktop).
+                    <!-- MODIFICATION ICI : Ajout de l'ID btn-deconnexion -->
+                    <a
+                        href="#"
+                        id="btn-deconnexion"
+                        class="menu-lien menu-deco"
+                    >
+                        <i class="fas fa-power-off"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                </nav>
+            </aside>
 
-         *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
-         ===================================================================== -->
-    <div id="dashboard-cartes">
-      <div id="carte-stock"></div>
-      <div id="carte-montant-du"></div>
-      <div id="carte-membres"></div>
-      <div id="carte-livraisons"></div>
-    </div>
+            <main>
+                <header class="header">
+                    <img
+                        src="../assets/logo__fond_blanc.png"
+                        alt="Logo Agricoop"
+                        width="150px"
+                        class="logo"
+                    />
 
-    <!-- =====================================================================
-         JOURS À FORTE ACTIVITÉ — TODO (Dev FS1)
-         Afficher le nombre de jours dépassant le seuil de 80 kg.
+                    <div class="profil">
+                        <div class="icon">
+                            <i
+                                class="fa-regular fa-bell"
+                                style="color: #00331b"
+                            ></i>
+                        </div>
 
-         *** NE PAS MODIFIER l'id ci-dessous — main.js l'utilise ***
-         ===================================================================== -->
-    <div id="jours-actifs"></div>
+                        <div class="profil_detail">
+                            <!-- MODIFICATION ICI : Utilisation de l'ID utilisateur-connecte -->
+                            <span id="utilisateur-connecte">Chargement...</span>
+                            <span class="profil_role" id="role_utilisateur"
+                                >Utilisateur</span
+                            >
+                        </div>
 
-    <!-- =====================================================================
-         GRAPHIQUE SEMAINE — TODO (Dev FS1)
-         Conteneur pour un graphique en barres (barres générées par main.js).
-         Le dev doit styliser les barres via CSS (.barre).
+                        <div class="profil_box_picture">
+                            <img
+                                src="../assets/sarah_malonga.png"
+                                alt="Photo de profil"
+                                width="150px"
+                            />
+                        </div>
+                    </div>
+                </header>
 
-         *** NE PAS MODIFIER l'id ci-dessous — main.js l'utilise ***
-         ===================================================================== -->
-    <div id="graphique-semaine"></div>
-  </main>
+                <div class="main">
+                    <h1>Tableau de bord</h1>
+                    <!-- CARTES INDICATEURS -->
+                    <div id="dashboard-cartes" class="grid-cartes">
+                        <div class="card">
+                            <i
+                                class="fa-solid fa-warehouse"
+                                style="color: #00331b"
+                            ></i>
+                            <h3>Stock disponible</h3>
+                            <div id="carte-stock" class="valeur-indicateur">
+                                3940Kg
+                            </div>
+                            <span>Total tout produit</span>
+                        </div>
+                        <div class="card">
+                            <i class="fas fa-coins"></i>
+                            <h3>Montant dû</h3>
+                            <div
+                                id="carte-montant-du"
+                                class="valeur-indicateur"
+                            >
+                                ...
+                            </div>
+                            <span>Aux producteurs</span>
+                        </div>
+                        <div class="card">
+                            <i class="fas fa-users"></i>
+                            <h3>Membres actifs</h3>
+                            <div id="carte-membres" class="valeur-indicateur">
+                                ...
+                            </div>
+                            <span>Producteurs</span>
+                        </div>
+                        <div class="card">
+                            <i class="fas fa-truck"></i>
+                            <h3>Livraisons du mois</h3>
+                            <div
+                                id="carte-livraisons"
+                                class="valeur-indicateur"
+                            >
+                                ...
+                            </div>
+                            <span>Juin 2026</span>
+                        </div>
+                    </div>
 
-  <!-- NE PAS MODIFIER — scripts de connexion au backend -->
-  <script src="../functions.js"></script>
-  <script src="../main.js"></script>
-</body>
+                    <!-- JOURS DE FORTE ACTIVITE -->
+                    <div class="card card-graphique">
+                        <div class="info-graphique">
+                            <h3>Jours à forte activité (plus de 80 kg)</h3>
+                            <div class="nombre-jours" id="jours-actifs">0</div>
+                            <div class="periode">Ce mois-ci</div>
+                        </div>
+
+                        <div class="conteneur-svg">
+                            <svg
+                                viewBox="0 0 100 40"
+                                preserveAspectRatio="none"
+                                width="100%"
+                                height="100%"
+                            >
+                                <!-- Ligne de base très légère -->
+                                <line
+                                    x1="0"
+                                    y1="35"
+                                    x2="100"
+                                    y2="35"
+                                    stroke="#e6e6e6"
+                                    stroke-width="1"
+                                />
+
+                                <!-- Courbe principale -->
+                                <polyline
+                                    id="ligne-graphique"
+                                    points="
+                                        5,28
+                                        15,25
+                                        25,28
+                                        35,22
+                                        45,27
+                                        55,24
+                                        65,29
+                                        75,23
+                                        85,20
+                                        95,18
+                                    "
+                                    fill="none"
+                                    stroke="#34a853"
+                                    stroke-width="1"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                />
+
+                                <!-- Points -->
+                                <g fill="#34a853">
+                                    <circle cx="5" cy="28" r="2" />
+                                    <circle cx="15" cy="25" r="2" />
+                                    <circle cx="25" cy="28" r="2" />
+                                    <circle cx="35" cy="22" r="2" />
+                                    <circle cx="45" cy="27" r="2" />
+                                    <circle cx="55" cy="24" r="2" />
+                                    <circle cx="65" cy="29" r="2" />
+                                    <circle cx="75" cy="23" r="2" />
+                                    <circle cx="85" cy="20" r="2" />
+                                    <circle cx="95" cy="18" r="2" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- GRAPHIQUE SEMAINE -->
+                    <div class="card full-width graphique-semaine-container">
+                        <div class="graphique-semaine-header">
+                            <h3>Activité de la semaine</h3>
+                            <span class="graphique-semaine-subtitle"
+                                >Volume livré (kg) par jour</span
+                            >
+                        </div>
+
+                        <div class="graphique-semaine-body">
+                            <div class="modern-grid-lines">
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                            </div>
+
+                            <div id="graphique-semaine"></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- NE PAS MODIFIER — scripts de connexion au backend -->
+        <script src="../functions.js"></script>
+        <script src="../main.js"></script>
+
+        <!-- Ne pas modifier — scripts de connexion au backend -->
+        <script src="../functions.js"></script>
+        <script src="../main.js"></script>
+    </body>
 </html>

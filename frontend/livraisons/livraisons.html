@@ -1,58 +1,234 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgriCoop Connect — Livraisons</title>
-  <link rel="stylesheet" href="livraisons.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AgriCoop Connect — Livraisons</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+        <link rel="stylesheet" href="livraisons.css" />
+    </head>
+    <body>
+        <div class="container">
+            <aside class="sidebar" id="sidebar">
+                <div class="logo">
+                    <img
+                        src="../assets/logo.png"
+                        alt="Logo Agricoop"
+                        width="150px"
+                    />
+                </div>
 
-  <!-- NAVIGATION — TODO (Dev FS3) -->
+                <nav class="menu">
+                    <a href="../dashboard/dashboard.html" class="menu-lien">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                    <a href="../membres/membres.html" class="menu-lien">
+                        <i class="fas fa-users"></i>
+                        <span>Membres</span>
+                    </a>
+                    <a
+                        href="../livraisons/livraisons.html"
+                        class="menu-lien active"
+                    >
+                        <i class="fas fa-truck"></i>
+                        <span>Livraisons</span>
+                    </a>
+                    <a href="../paiements/paiements.html" class="menu-lien">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Paiements</span>
+                    </a>
+                    <a href="../ventes/ventes.html" class="menu-lien">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                        <span>Ventes</span>
+                    </a>
+                    <a
+                        href="../statistiques/statistiques.html"
+                        class="menu-lien"
+                    >
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Statistiques</span>
+                    </a>
+                    <a href="../comptes/comptes.html" class="menu-lien">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Comptes</span>
+                    </a>
 
-  <main>
-    <!-- =====================================================================
-         FORMULAIRE D'ENREGISTREMENT — TODO (Dev FS3)
-         Construire le formulaire (membre, culture, quantité) et les zones
-         de messages. Le dev doit structurer et styliser le formulaire.
+                    <a
+                        href="#"
+                        id="btn-deconnexion"
+                        class="menu-lien menu-deco"
+                    >
+                        <i class="fas fa-power-off"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                </nav>
+            </aside>
 
-         *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
-         ===================================================================== -->
-    <form id="form-livraison">
-      <select id="f-membre"><option value="">-- Choisir un membre --</option></select>
-      <select id="f-culture">
-        <option value="">-- Choisir une culture --</option>
-        <option value="Manioc">Manioc</option>
-        <option value="Maïs">Maïs</option>
-        <option value="Arachide">Arachide</option>
-      </select>
-      <input type="number" id="f-quantite" min="1" placeholder="Quantité (kg)">
-      <button type="submit">Enregistrer</button>
-    </form>
+            <main>
+                <header class="header">
+                    <img
+                        src="../assets/logo__fond_blanc.png"
+                        alt="Logo Agricoop"
+                        width="150px"
+                        class="logo"
+                    />
 
-    <div id="message-erreur-livraison" hidden></div>
-    <div id="message-succes-livraison" hidden></div>
+                    <div class="profil">
+                        <div class="icon">
+                            <i
+                                class="fa-regular fa-bell"
+                                style="color: #00331b"
+                            ></i>
+                        </div>
 
-    <!-- =====================================================================
-         TABLEAU DES LIVRAISONS — TODO (Dev FS3)
-         Construire un tableau HTML triable. Le contenu des <tr> est injecté
-         par main.js dans le <tbody>. Le dev structure le <table>, le <thead>,
-         et le bouton de tri.
+                        <div class="profil_detail">
+                            <span id="utilisateur-connecte">Chargement...</span>
+                            <span class="profil_role" id="role_utilisateur"
+                                >Utilisateur</span
+                            >
+                        </div>
 
-         *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
-         ===================================================================== -->
-    <button id="btn-trier-livraisons">Trier par date</button>
+                        <div class="profil_box_picture">
+                            <img
+                                src="../assets/sarah_malonga.png"
+                                alt="Photo de profil"
+                                width="150px"
+                            />
+                        </div>
+                    </div>
+                </header>
 
-    <table>
-      <thead>
-        <!-- TODO (Dev FS3) : en-têtes du tableau (Membre, Culture, Quantité, Date) -->
-      </thead>
-      <tbody id="liste-livraisons"></tbody>
-    </table>
-  </main>
+                <section class="contenu-page">
+                    <div class="page-entete">
+                        <h1 class="page-titre">Livraisons</h1>
+                        <p class="page-sous-titre">
+                            Enregistrez et suivez les livraisons des membres de
+                            la coopérative
+                        </p>
+                    </div>
 
-  <!-- NE PAS MODIFIER — scripts de connexion au backend -->
-  <script src="../functions.js"></script>
-  <script src="../main.js"></script>
-</body>
+                    <!-- ===================== FORMULAIRE ===================== -->
+                    <div class="carte-formulaire">
+                        <div class="carte-entete">
+                            <i
+                                class="fas fa-truck-ramp-box carte-entete-icone"
+                            ></i>
+                            <div>
+                                <h2 class="carte-titre">Nouvelle livraison</h2>
+                                <p class="carte-description">
+                                    Renseignez le membre, la culture et la
+                                    quantité livrée
+                                </p>
+                            </div>
+                        </div>
+
+                        <form id="form-livraison" class="form-grille">
+                            <div class="champ">
+                                <label for="f-membre" class="champ-etiquette">
+                                    Membre
+                                </label>
+                                <input
+                                    type="text"
+                                    id="f-membre"
+                                    class="champ-controle"
+                                    placeholder="Ex : Jean MABIALA"
+                                />
+                            </div>
+
+                            <div class="champ">
+                                <label for="f-culture" class="champ-etiquette">
+                                    Culture
+                                </label>
+                                <select id="f-culture" class="champ-controle">
+                                    <option value="">
+                                        -- Choisir une culture --
+                                    </option>
+                                    <option value="Manioc">Manioc</option>
+                                    <option value="Maïs">Maïs</option>
+                                    <option value="Arachide">Arachide</option>
+                                </select>
+                            </div>
+
+                            <div class="champ">
+                                <label for="f-quantite" class="champ-etiquette">
+                                    
+                                    Quantité (kg)
+                                </label>
+                                <input
+                                    type="number"
+                                    id="f-quantite"
+                                    class="champ-controle"
+                                    min="1"
+                                    placeholder="Ex : 120"
+                                />
+                            </div>
+
+                            <div class="champ champ-action">
+                                <button type="submit" class="bouton-principal">
+                                    <i class="fas fa-floppy-disk"></i>
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </form>
+
+                    <!-- ===================== TABLEAU ===================== -->
+                    <div class="carte-tableau">
+                        <div class="tableau-entete">
+                            <div>
+                                <h2 class="carte-titre">
+                                    Historique des livraisons
+                                </h2>
+                                <p class="carte-description">
+                                    Liste des dernières livraisons enregistrées
+                                </p>
+                            </div>
+                            <button
+                                id="btn-trier-livraisons"
+                                class="bouton-secondaire"
+                            >
+                                <i class="fas fa-arrow-down-wide-short"></i>
+                                Trier par date
+                            </button>
+                        </div>
+
+                        <div class="tableau-conteneur">
+                            <table class="tableau">
+                                <thead>
+                                    <tr>
+                                        <th class="col-membre">Membre</th>
+                                        <th class="col-culture">Culture</th>
+                                        <th class="col-quantite">
+                                            Quantité (kg)
+                                        </th>
+                                        <th class="col-date">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="liste-livraisons">
+                                    <tr>
+                                        <td colspan="4" class="tableau-vide">
+                                            <i class="fas fa-truck-fast"></i>
+                                            Chargement des livraisons...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script src="../functions.js"></script>
+        <script src="../main.js"></script>
+    </body>
 </html>

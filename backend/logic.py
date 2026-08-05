@@ -99,7 +99,6 @@ def calculer_indicateurs_globaux(livraisons, ventes, paiements):
             "nb_livraisons_mois": 2
         }
     """
-         # TODO : à compléter
     # Calculer la quantité totale livrée moins la quantité vendue
     stock_total = sum(l["quantite"] for l in livraisons) - sum(v["quantite"] for v in ventes)
 
@@ -149,7 +148,6 @@ def calculer_livraisons_par_jour_semaine(livraisons):
         entrée -> [{"date": "2026-07-08", "quantite": 40}, {"date": "2026-07-08", "quantite": 10}]
         sortie -> {"2026-07-08": 50}
     """
-         # TODO : à compléter
     # Dictionnaire qui contiendra les quantités par date
     resultat = {}
 
@@ -173,8 +171,6 @@ def calculer_livraisons_par_jour_semaine(livraisons):
 
     # Retourner le dictionnaire final
     return resultat
-
-
 def classer_membres_par_production(livraisons):
     """
     Trie les membres par volume total livré, du plus gros producteur au
@@ -209,7 +205,6 @@ def classer_membres_par_production(livraisons):
             {"membre_id": 2, "volume_total": 50},
         ]
     """
-         # TODO : à compléter
     # Dictionnaire contenant le volume produit par chaque membre
     volumes = {}
 
@@ -282,7 +277,6 @@ def calculer_statistiques_globales(livraisons, ventes):
 
         sortie -> {"Manioc": {"volume_total": 100, "valeur_totale": 11000}}
     """
-         # TODO : à compléter
     # Dictionnaire des statistiques par culture
     statistiques = {}
 
@@ -377,7 +371,6 @@ def generer_indicateurs_rapport_bailleur(livraisons, ventes, paiements):
         sortie -> {"volume_total_periode": 150, "montant_ventes_periode": 17600,
                    "taux_regularite_paiements": 50, "nb_membres_actifs": 2}
     """
-         # TODO : à compléter
          
     # Calculer le volume total livré
     volume_total = sum(l["quantite"] for l in livraisons)
@@ -443,7 +436,6 @@ def identifier_top_acheteur(ventes, acheteurs):
         acheteurs -> [{"id": 1, "nom": "Christiane Nkaya"}, {"id": 2, "nom": "Talangaï"}]
         sortie    -> {"acheteur_nom": "Christiane Nkaya", "volume_total": 150}
     """
-         # TODO : à compléter
     # Si aucune vente n'existe
     if not ventes:
 
