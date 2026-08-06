@@ -117,18 +117,6 @@
 
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
-<<<<<<< HEAD
-    <form id="form-paiement" class="payment-form">
-      <select id="p-membre"><option value="">-- Choisir un membre --</option></select>
-      <input type="number" id="p-montant" min="1" placeholder="Montant (FCFA)">
-      <select id="p-mode-paiement">
-        <option value="">-- Mode de paiement --</option>
-        <option value="Espèces">Espèces</option>
-        <option value="Mobile Money">Mobile Money</option>
-      </select>
-      <button type="submit" class="p-btn">Enregistrer</button>
-    </form>
-=======
                     <form id="form-paiement">
                         <select id="p-membre">
                             <option value="">-- Choisir un membre --</option>
@@ -146,7 +134,6 @@
                         </select>
                         <button type="submit" class="p-btn">Enregistrer</button>
                     </form>
->>>>>>> feff85c (fix: Corrections des bugs et allegement de ligne de code dans functions.js et finalisation partiel de l'ensemble des pages frontend)
 
                     <div id="message-erreur-paiement" hidden>
                         Impossible d'exécuter le paiement.
@@ -160,31 +147,6 @@
 
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
-<<<<<<< HEAD
-    <div id="total-paiements" class="summary-card">
-      Le total des paiements enregistrés : <span id="total-montant">0</span> FCFA
-    </div>
-
-    <div class="table-card">
-      <table class="payment-table">
-        <thead>
-          <tr>
-            <th>Membre</th>
-            <th>Montant</th>
-            <th>Mode de paiement</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody id="liste-paiements"></tbody>
-      </table>
-    </div>
-  </main>
-
-  <!-- NE PAS MODIFIER — scripts de connexion au backend -->
-  <script src="../functions.js"></script>
-  <script src="../main.js"></script>
-</body>
-=======
                     <div id="total-paiements">
                         le total des paiements enregistrés :
                         <span id="total-montant">0</span> FCFA
@@ -208,5 +170,4 @@
         <script src="../functions.js"></script>
         <script src="../main.js"></script>
     </body>
->>>>>>> feff85c (fix: Corrections des bugs et allegement de ligne de code dans functions.js et finalisation partiel de l'ensemble des pages frontend)
 </html>
