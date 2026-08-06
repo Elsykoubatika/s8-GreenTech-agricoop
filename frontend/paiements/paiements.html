@@ -1,39 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgriCoop Connect — Paiements</title>
-  <link rel="stylesheet" href="paiements.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AgriCoop Connect — Livraisons</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+        <link rel="stylesheet" href="paiements.css" />
+    </head>
+    <body>
+        <div class="container">
+            <aside class="sidebar" id="sidebar">
+                <div class="logo">
+                    <img
+                        src="../assets/logo.png"
+                        alt="Logo Agricoop"
+                        width="150px"
+                    />
+                </div>
 
-  <!-- NAVIGATION — TODO (Dev FS4) -->
-   <header class="sidebar">
-    <nav>
-      <div class="navigation1">
-        <ul>
-          <li><a href="../dashboard/dashboard.html">Tableau de bord</a></li>
-          <li><a href="../livraisons/livraisons.html">Livraisons</a></li>
-          <li><a href="../membres/membres.html">Membres</a></li>
-          <li><a href="../paiements/paiements.html">Paiements </a></li>
-          <li><a href="../ventes/ventes.html">Ventes</a></li>
-          <li><a href="../statistiques/statistiques.html">Statistiques</a></li>
-        </ul>
-      </div>
-    <div class="navigation2">
-      <ul>
-         <li><a href="*">Déconnection</a></li>
-      </ul>
-    </div>
-  </nav>
-  </header>
-  <main>
-    <!-- =====================================================================
+                <nav class="menu">
+                    <a href="../dashboard/dashboard.html" class="menu-lien">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                    <a href="../membres/membres.html" class="menu-lien">
+                        <i class="fas fa-users"></i>
+                        <span>Membres</span>
+                    </a>
+                    <a href="../livraisons/livraisons.html" class="menu-lien">
+                        <i class="fas fa-truck"></i>
+                        <span>Livraisons</span>
+                    </a>
+                    <a
+                        href="../paiements/paiements.html"
+                        class="menu-lien active"
+                    >
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Paiements</span>
+                    </a>
+                    <a href="../ventes/ventes.html" class="menu-lien">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                        <span>Ventes</span>
+                    </a>
+                    <a
+                        href="../statistiques/statistiques.html"
+                        class="menu-lien"
+                    >
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Statistiques</span>
+                    </a>
+                    <a href="../comptes/comptes.html" class="menu-lien">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Comptes</span>
+                    </a>
+
+                    <a
+                        href="#"
+                        id="btn-deconnexion"
+                        class="menu-lien menu-deco"
+                    >
+                        <i class="fas fa-power-off"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <main>
+                <header class="header">
+                    <img
+                        src="../assets/logo__fond_blanc.png"
+                        alt="Logo Agricoop"
+                        width="150px"
+                        class="logo"
+                    />
+
+                    <div class="profil">
+                        <div class="icon">
+                            <i
+                                class="fa-regular fa-bell"
+                                style="color: #00331b"
+                            ></i>
+                        </div>
+
+                        <div class="profil_detail">
+                            <span id="utilisateur-connecte">Chargement...</span>
+                            <span class="profil_role" id="role_utilisateur"
+                                >Utilisateur</span
+                            >
+                        </div>
+
+                        <div class="profil_box_picture">
+                            <img
+                                src="../assets/sarah_malonga.png"
+                                alt="Photo de profil"
+                                width="150px"
+                            />
+                        </div>
+                    </div>
+                </header>
+
+                <div class="main">
+                    <h1>
+                        Paiements
+                    </h1>
+                    <!-- =====================================================================
          FORMULAIRE DE PAIEMENT — TODO (Dev FS4)
 
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
+<<<<<<< HEAD
     <form id="form-paiement" class="payment-form">
       <select id="p-membre"><option value="">-- Choisir un membre --</option></select>
       <input type="number" id="p-montant" min="1" placeholder="Montant (FCFA)">
@@ -44,15 +128,39 @@
       </select>
       <button type="submit" class="p-btn">Enregistrer</button>
     </form>
+=======
+                    <form id="form-paiement">
+                        <select id="p-membre">
+                            <option value="">-- Choisir un membre --</option>
+                        </select>
+                        <input
+                            type="number"
+                            id="p-montant"
+                            min="1"
+                            placeholder="Montant (FCFA)"
+                        />
+                        <select id="p-mode-paiement">
+                            <option value="">-- Mode de paiement --</option>
+                            <option value="Espèces">Espèces</option>
+                            <option value="Mobile Money">Mobile Money</option>
+                        </select>
+                        <button type="submit" class="p-btn">Enregistrer</button>
+                    </form>
+>>>>>>> feff85c (fix: Corrections des bugs et allegement de ligne de code dans functions.js et finalisation partiel de l'ensemble des pages frontend)
 
-    <div id="message-erreur-paiement" hidden>Impossible d'exécuter le paiement.</div>
-    <div id="message-succes-paiement" hidden>Paiement enregistré avec succès.</div>
+                    <div id="message-erreur-paiement" hidden>
+                        Impossible d'exécuter le paiement.
+                    </div>
+                    <div id="message-succes-paiement" hidden>
+                        Paiement enregistré avec succès.
+                    </div>
 
-    <!-- =====================================================================
+                    <!-- =====================================================================
          TOTAL ET HISTORIQUE — TODO (Dev FS4)
 
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
+<<<<<<< HEAD
     <div id="total-paiements" class="summary-card">
       Le total des paiements enregistrés : <span id="total-montant">0</span> FCFA
     </div>
@@ -76,4 +184,29 @@
   <script src="../functions.js"></script>
   <script src="../main.js"></script>
 </body>
+=======
+                    <div id="total-paiements">
+                        le total des paiements enregistrés :
+                        <span id="total-montant">0</span> FCFA
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Membre</th>
+                                <th>Montant</th>
+                                <th>Mode de paiement</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="liste-paiements"></tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+        <!-- NE PAS MODIFIER — scripts de connexion au backend -->
+        <script src="../functions.js"></script>
+        <script src="../main.js"></script>
+    </body>
+>>>>>>> feff85c (fix: Corrections des bugs et allegement de ligne de code dans functions.js et finalisation partiel de l'ensemble des pages frontend)
 </html>

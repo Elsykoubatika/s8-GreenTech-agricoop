@@ -108,127 +108,115 @@
                     </div>
                 </header>
 
-                <section class="contenu-page">
-                    <div class="page-entete">
-                        <h1 class="page-titre">Livraisons</h1>
-                        <p class="page-sous-titre">
-                            Enregistrez et suivez les livraisons des membres de
-                            la coopérative
-                        </p>
-                    </div>
+                <div class="livraison-container">
+                    <h1>Livraisons</h1>
+                    <!-- =====================================================================
+                        FORMULAIRE D'ENREGISTREMENT — TODO (Dev FS3)
+                        Construire le formulaire (membre, culture, quantité) et les zones
+                        de messages. Le dev doit structurer et styliser le formulaire.
 
-                    <!-- ===================== FORMULAIRE ===================== -->
-                    <div class="carte-formulaire">
-                        <div class="carte-entete">
-                            <i
-                                class="fas fa-truck-ramp-box carte-entete-icone"
-                            ></i>
-                            <div>
-                                <h2 class="carte-titre">Nouvelle livraison</h2>
-                                <p class="carte-description">
-                                    Renseignez le membre, la culture et la
-                                    quantité livrée
-                                </p>
-                            </div>
+                        *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
+                    ===================================================================== -->
+                    <form id="form-livraison" class="formulaire">
+                        <div class="field">
+                            <label for="f-membre">Membre</label>
+                            <select id="f-membre">
+                                <option value="">
+                                    -- Choisir un membre --
+                                </option>
+                            </select>
                         </div>
 
-                        <form id="form-livraison" class="form-grille">
-                            <div class="champ">
-                                <label for="f-membre" class="champ-etiquette">
-                                    Membre
-                                </label>
-                                <input
-                                    type="text"
-                                    id="f-membre"
-                                    class="champ-controle"
-                                    placeholder="Ex : Jean MABIALA"
-                                />
-                            </div>
-
-                            <div class="champ">
-                                <label for="f-culture" class="champ-etiquette">
-                                    Culture
-                                </label>
-                                <select id="f-culture" class="champ-controle">
-                                    <option value="">
-                                        -- Choisir une culture --
-                                    </option>
-                                    <option value="Manioc">Manioc</option>
-                                    <option value="Maïs">Maïs</option>
-                                    <option value="Arachide">Arachide</option>
-                                </select>
-                            </div>
-
-                            <div class="champ">
-                                <label for="f-quantite" class="champ-etiquette">
-                                    
-                                    Quantité (kg)
-                                </label>
-                                <input
-                                    type="number"
-                                    id="f-quantite"
-                                    class="champ-controle"
-                                    min="1"
-                                    placeholder="Ex : 120"
-                                />
-                            </div>
-
-                            <div class="champ champ-action">
-                                <button type="submit" class="bouton-principal">
-                                    <i class="fas fa-floppy-disk"></i>
-                                    Enregistrer
-                                </button>
-                            </div>
-                        </form>
-
-                    <!-- ===================== TABLEAU ===================== -->
-                    <div class="carte-tableau">
-                        <div class="tableau-entete">
-                            <div>
-                                <h2 class="carte-titre">
-                                    Historique des livraisons
-                                </h2>
-                                <p class="carte-description">
-                                    Liste des dernières livraisons enregistrées
-                                </p>
-                            </div>
-                            <button
-                                id="btn-trier-livraisons"
-                                class="bouton-secondaire"
-                            >
-                                <i class="fas fa-arrow-down-wide-short"></i>
-                                Trier par date
-                            </button>
+                        <div class="field">
+                            <label for="f-culture">Culture</label>
+                            <select id="f-culture">
+                                <option value="">
+                                    -- Choisir une culture --
+                                </option>
+                                <option value="Manioc">Manioc</option>
+                                <option value="Maïs">Maïs</option>
+                                <option value="Arachide">Arachide</option>
+                            </select>
                         </div>
 
-                        <div class="tableau-conteneur">
-                            <table class="tableau">
-                                <thead>
-                                    <tr>
-                                        <th class="col-membre">Membre</th>
-                                        <th class="col-culture">Culture</th>
-                                        <th class="col-quantite">
-                                            Quantité (kg)
-                                        </th>
-                                        <th class="col-date">Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="liste-livraisons">
-                                    <tr>
-                                        <td colspan="4" class="tableau-vide">
-                                            <i class="fas fa-truck-fast"></i>
-                                            Chargement des livraisons...
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="field">
+                            <label for="f-quantite">Quantité (kg)</label>
+                            <input
+                                type="number"
+                                id="f-quantite"
+                                min="1"
+                                placeholder="Quantité (kg)"
+                            />
                         </div>
-                    </div>
-                </section>
+                        <button type="submit">Enregistrer</button>
+                    </form>
+
+                    <div id="message-erreur-livraison" hidden></div>
+                    <div id="message-succes-livraison" hidden></div>
+
+                    <!-- =====================================================================
+                        TABLEAU DES LIVRAISONS — TODO (Dev FS3)
+                        Construire un tableau HTML triable. Le contenu des <tr> est injecté
+                        par main.js dans le <tbody>. Le dev structure le <table>, le <thead>,
+                        et le bouton de tri.
+
+                        *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
+                    ===================================================================== -->
+                    <button id="btn-trier-livraisons">Trier par date</button>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Membre</th>
+                                <th>Culture</th>
+                                <th>Quantité (kg)</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="liste-livraisons"></tbody>
+                    </table>
+                </div>
             </main>
         </div>
 
         <script src="../functions.js"></script>
         <script src="../main.js"></script>
+        <script>
+            async function remplirSelectMembres() {
+                const selectMembre = document.getElementById('f-membre');
+                if (!selectMembre) return;
+
+                try {
+                    // On appelle l'API pour récupérer les membres
+                    const reponse = await fetch(
+                        'http://localhost:5000/api/membres',
+                    );
+                    const data = await reponse.json();
+
+                    if (reponse.ok && data.membres) {
+                        // On vide l'option par défaut
+                        selectMembre.innerHTML =
+                            '<option value="">-- Choisir un membre --</option>';
+
+                        // On ajoute chaque membre dans le select
+                        data.membres.forEach((membre) => {
+                            const option = document.createElement('option');
+                            // main.js utilise Number(...) sur cette valeur, il faut donc l'ID
+                            option.value = membre.id || membre._id;
+                            option.textContent = membre.nom;
+                            selectMembre.appendChild(option);
+                        });
+                    }
+                } catch (e) {
+                    console.error(
+                        'Impossible de charger les membres pour le formulaire :',
+                        e,
+                    );
+                }
+            }
+
+            // On lance la fonction quand la page est prête
+            document.addEventListener('DOMContentLoaded', remplirSelectMembres);
+        </script>
     </body>
 </html>

@@ -1,64 +1,212 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgriCoop Connect — Statistiques</title>
-  <link rel="stylesheet" href="statistiques.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AgriCoop Connect — Statistiques</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+        <link rel="stylesheet" href="statistiques.css" />
+    </head>
+    <body>
+        <div class="container">
+            <aside class="sidebar" id="sidebar">
+                <div class="logo">
+                    <img
+                        src="../assets/logo.png"
+                        alt="Logo Agricoop"
+                        width="150px"
+                    />
+                </div>
 
-  <!-- NAVIGATION — TODO (Dev FS6) -->
+                <nav class="menu">
+                    <a href="../dashboard/dashboard.html" class="menu-lien">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                    <a href="../membres/membres.html" class="menu-lien">
+                        <i class="fas fa-users"></i>
+                        <span>Membres</span>
+                    </a>
+                    <a href="../livraisons/livraisons.html" class="menu-lien">
+                        <i class="fas fa-truck"></i>
+                        <span>Livraisons</span>
+                    </a>
+                    <a href="../paiements/paiements.html" class="menu-lien">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Paiements</span>
+                    </a>
+                    <a href="../ventes/ventes.html" class="menu-lien">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                        <span>Ventes</span>
+                    </a>
+                    <a
+                        href="../statistiques/statistiques.html"
+                        class="menu-lien active"
+                    >
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Statistiques</span>
+                    </a>
+                    <a href="../comptes/comptes.html" class="menu-lien">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Comptes</span>
+                    </a>
 
-  <main>
-    <!-- =====================================================================
-         CLASSEMENT DES MEMBRES — TODO (Dev FS6)
-         Le contenu (liste <li>) est injecté par main.js.
+                    <a
+                        href="#"
+                        id="btn-deconnexion"
+                        class="menu-lien menu-deco"
+                    >
+                        <i class="fas fa-power-off"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                </nav>
+            </aside>
 
-         *** NE PAS MODIFIER l'id ci-dessous — main.js l'utilise ***
-         ===================================================================== -->
-    <ol id="classement-membres"></ol>
+            <main>
+                <header>
+                    <div class="header-left">
+                        <img
+                            src="../assets/logo__fond_blanc.png"
+                            alt="Logo Agricoop"
+                            width="150px"
+                            class="logo"
+                        />
+                    </div>
 
-    <!-- =====================================================================
-         TABLEAU PAR CULTURE — TODO (Dev FS6)
+                    <div class="profil">
+                        <div class="icon">
+                            <i
+                                class="fa-regular fa-bell"
+                                style="color: #00331b"
+                            ></i>
+                        </div>
 
-         *** NE PAS MODIFIER l'id ci-dessous — main.js l'utilise ***
-         ===================================================================== -->
-    <table>
-      <thead>
-        <tr>
-          <th>Culture</th>
-          <th>Volume total</th>
-          <th>Valeur totale</th>
-        </tr>
-      </thead>
-      <tbody id="tableau-cultures"></tbody>
-    </table>
+                        <div class="profil_detail">
+                            <span id="utilisateur-connecte">Chargement...</span>
+                            <span class="profil_role" id="role_utilisateur"
+                                >Utilisateur</span
+                            >
+                        </div>
 
-    <!-- =====================================================================
-         TOP ACHETEUR — TODO (Dev FS6)
+                        <div class="profil_box_picture">
+                            <img
+                                src="../assets/sarah_malonga.png"
+                                alt="Photo de profil"
+                                width="150px"
+                            />
+                        </div>
+                    </div>
+                </header>
 
-         *** NE PAS MODIFIER l'id ci-dessous — main.js l'utilise ***
-         ===================================================================== -->
-    <div id="top-acheteur"></div>
+                <div class="main">
+                    <h1>Statistiques</h1>
+                    
+                    <div class="stats-grid">
+                        <!-- Colonne de gauche -->
+                        <div class="stats-column">
+                            <!-- Classement des membres -->
+                            <div class="card">
+                                <h2 class="card-title">
+                                    Classement des membres
+                                </h2>
+                                <ol id="classement-membres"></ol>
+                            </div>
 
-    <!-- =====================================================================
-         RAPPORT BAILLEUR — TODO (Dev FS6 + DM)
-         Le dev structure la section, le DM fournit les textes d'habillage.
-         Les valeurs chiffrées sont injectées par main.js.
+                            <!-- Rapport Bailleur / Partenaire -->
+                            <section id="rapport-bailleur-contenu" class="card">
+                                <h2 class="card-title">Rapport partenaire</h2>
+                                <p class="rb-intro">
+                                    Voici un résumé des performances de la
+                                    coopérative pour la période en cours. Ces
+                                    données reflètent l'engagement de nos
+                                    membres et la santé financière de nos
+                                    activités agricoles.
+                                </p>
+                                <div class="rb-stats">
+                                    <div class="rb-stat">
+                                        <span class="rb-label"
+                                            >Volume total livré</span
+                                        >
+                                        <span
+                                            id="rb-volume"
+                                            class="rb-value"
+                                        ></span>
+                                    </div>
+                                    <div class="rb-stat">
+                                        <span class="rb-label"
+                                            >Montant total des ventes</span
+                                        >
+                                        <span
+                                            id="rb-montant"
+                                            class="rb-value"
+                                        ></span>
+                                    </div>
+                                    <div class="rb-stat">
+                                        <span class="rb-label"
+                                            >Taux de régularité</span
+                                        >
+                                        <span
+                                            id="rb-taux"
+                                            class="rb-value"
+                                        ></span>
+                                    </div>
+                                    <div class="rb-stat">
+                                        <span class="rb-label"
+                                            >Membres actifs</span
+                                        >
+                                        <span
+                                            id="rb-membres"
+                                            class="rb-value"
+                                        ></span>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
 
-         *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
-         ===================================================================== -->
-    <section id="rapport-bailleur-contenu">
-      <span id="rb-volume"></span>
-      <span id="rb-montant"></span>
-      <span id="rb-taux"></span>
-      <span id="rb-membres"></span>
-    </section>
-  </main>
+                        <!-- Colonne de droite -->
+                        <div class="stats-column">
+                            <!-- Tableau par culture -->
+                            <div class="card">
+                                <h2 class="card-title">Par culture</h2>
+                                <div class="table-wrapper">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Culture</th>
+                                                <th>Volume total</th>
+                                                <th>Valeur totale</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableau-cultures"></tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-  <!-- NE PAS MODIFIER — scripts de connexion au backend -->
-  <script src="../functions.js"></script>
-  <script src="../main.js"></script>
-</body>
+                            <!-- Top acheteur -->
+                            <div class="card">
+                                <h2 class="card-title">Top acheteur</h2>
+                                <div
+                                    id="top-acheteur"
+                                    class="top-acheteur-content"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- NE PAS MODIFIER — scripts de connexion au backend -->
+        <script src="../functions.js"></script>
+        <script src="../main.js"></script>
+    </body>
 </html>
