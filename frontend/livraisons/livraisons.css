@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f8f5;
+  color: #243b2d;
+}
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background-color:  #1e5e3a;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  top: 0;
+  color: #ffffff;
+  box-shadow: 2px 0 14px rgba(0, 0, 0, 0.12);
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+nav ul li a {
+  color: #e8f5e9;
+  text-decoration: none;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition:  0.2s ease, transform 0.2s ease;
+}
+
+nav ul li a:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateX(3px);
+}
+
+main {
+  margin-left: 280px;
+  padding: 32px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+#form-livraison{
+  margin-top: 20px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e3eee6;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+}
+#f-membre,
+#f-culture,
+#f-quantite{
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d8e7de;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #243b2d;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+#btn-trier-livraisons{
+  grid-column: 1 / -1;
+  border: none;
+  background: #1e5e3a;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition:  0.2s ease, transform 0.2s ease;
+}
+#btn-trier-livraisons:hover {
+  background: #227249;
+  transform: translateY(-1px);
+}
+.rec{
+    padding: 10px;
+    border: none;
+    background-color: #1e5e3a;
+    color:#ffffff;
+    font-size:0.95rem ;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s ease, transform 0.2s ease;
+}
+.rec:hover {
+    background-color: #227249;
+    transform: translateY(-2px);
+}
+#table{
+  margin-top: 20px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e3eee6;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+  display: grid;
+  gap: 12px;
+  width:100%;
+  align-items: center;
+  justify-content: center;
+  border-collapse: collapse;
+
+}
+#table th,
+#table td{
+  border-bottom: 1px solid #727573;
+  text-align: center;
+  padding: 12px 50px;
+
+}
+#table th{
+  background: #f4f8f5;
+  color: #1e5e3a;
+  
+}
+
+
+ 

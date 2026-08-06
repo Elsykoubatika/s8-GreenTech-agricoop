@@ -72,8 +72,7 @@ function filtrerMembresParStatut(membres, statut) {
    Astuce     : "Jean Mabiala".toLowerCase().includes("jean") -> true */
 function rechercherMembreParNom(membres, texte) {
   // TODO : à compléter
-    return membres.filter(membre =>
-        membre.nom.toLowerCase().includes(texte.toLowerCase())
+    return membres.filter(membre => membre.nom.includes(texte)
     );
 
 }
@@ -92,30 +91,36 @@ function rechercherMembreParNom(membres, texte) {
                                             "Le contact est obligatoire."]} */
 function validerFormulaireNouveauMembre(donnees) {
   // TODO : à compléter
-    event.preventDefault();
 
-    const nom=document.getElementById("nm-nom").value.trim();
+    const nom=document.getElementById("nm-nom").value;
 
-    const village=document.getElementById("nm-village").value.trim();
+    const prenom=document.getElementById("nm-prenom").value;
 
-    const telephone=document.getElementById("nm-contact").value.trim();
+    const village=document.getElementById("nm-village").value;
+
+    const telephone=document.getElementById("nm-contact").value;
 
     if(nom===""){
         alert("Le nom est obligatoire.");
         return;
     }
+    else if(prenom ===""){
+      alert("Le prenom est obligatoire");
+    }
 
-    if(village===""){
-        alert("L'email est obligatoire.");
+    else if(village===""){
+        alert("Le village est obligatoire.");
         return;
     }
 
-    if(telephone===""){
+    else if(telephone===""){
         alert("Le téléphone est obligatoire.");
         return;
     }
-
+    else{
     alert("Nouveau membre enregistré.");
+
+    }
 
 }
 
@@ -132,6 +137,30 @@ function validerFormulaireNouveauMembre(donnees) {
    Astuce   : Number("abc") vaut NaN ; Number("40") vaut 40. */
 function validerFormulaireLivraison(donnees) {
   // TODO : à compléter
+  
+  const membre = document.getElementById("f-membre").value;
+
+  const culture = document.getElementById("f-culture").value;
+
+  const quantite = document.getElementById("f-quantite").value;
+
+  if (membre ===""){
+    alert("le mebre est obligatoir");
+    return;
+  }
+  else if (culture === ""){
+    alert("C'est obliger de choisir la culture");
+    return;
+  }
+  else if (quantite ===""){
+    alert("c'est obliger de definir une qunatité avant d'avancer");
+    return;
+  }
+  else{
+    alert("Nouveau membre enregistré.");
+  }
+
+  
 }
 
 
@@ -144,6 +173,8 @@ function validerFormulaireLivraison(donnees) {
                directement (ordre alphabétique = ordre chronologique). */
 function trierLivraisonsParDate(livraisons) {
   // TODO : à compléter
+   
+  
 }
 
 
@@ -160,7 +191,6 @@ function trierLivraisonsParDate(livraisons) {
    Retourne : true si tout est valide, false sinon. */
 function validerFormulairePaiement(donnees) {
   // TODO : à compléter
-  event.preventDefault();
 
     const montant = document.getElementById("p-montant").value;
 
@@ -214,30 +244,31 @@ function calculerTotalPaiements(paiements) {
 // Validation du formulaire membre
 function validerFormulaireMembre(event){
 
-    event.preventDefault();
 
-    const nom=document.getElementById("nom").value.trim();
+    const nom=document.getElementById("nom").value;
 
-    const email=document.getElementById("email").value.trim();
+    const email=document.getElementById("email").value;
 
-    const telephone=document.getElementById("telephone").value.trim();
+    const telephone=document.getElementById("telephone").value;
 
     if(nom===""){
         alert("Le nom est obligatoire.");
         return;
     }
 
-    if(email===""){
+    else if(email===""){
         alert("L'email est obligatoire.");
         return;
     }
 
-    if(telephone===""){
+    else if(telephone===""){
         alert("Le téléphone est obligatoire.");
         return;
     }
+    else {
+      alert("Nouveau membre enregistré.");
 
-    alert("Nouveau membre enregistré.");
+    }
 
 }
 
