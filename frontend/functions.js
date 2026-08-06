@@ -19,7 +19,6 @@
    Vérifiez votre travail : ouvrez functions.test.html dans le navigateur.
    ===================================================================== */
 
-
 /* [Dev FS1 — Connexion — niveau S7 : conditions simples]
    Vérifie qu'un formulaire de connexion est valide avant de l'envoyer au
    serveur (module Authentification, nouveau).
@@ -32,9 +31,15 @@
    Retourne : true si tout est valide, false sinon.
    Astuce   : "  ".trim() donne une chaîne vide "". */
 function validerFormulaireLogin(donnees) {
-  // TODO : à compléter
-}
+    if (
+        donnees.nom_utilisateur.trim() === '' ||
+        donnees.mot_de_passe.trim() === ''
+    ) {
+        return false;
+    }
 
+    return true;
+}
 
 /* [Dev FS1 — Tableau de bord — niveau S7 : boucle + condition]
    Compte le nombre de jours (parmi les entrées reçues) où le volume
@@ -44,9 +49,8 @@ function validerFormulaireLogin(donnees) {
    Exemple    : compterJoursActifs({"2026-07-08": 135, "2026-07-09": 60}, 100) -> 1
    Astuce     : Object.values(livraisonsParJour) donne un tableau des quantités. */
 function compterJoursActifs(livraisonsParJour, seuil) {
-  // TODO : à compléter
+    // TODO : à compléter
 }
-
 
 /* [Dev FS2 — Membres — niveau S8 : tableau .filter]
    Garde uniquement les membres ayant un statut de cotisation donné.
@@ -62,7 +66,6 @@ function filtrerMembresParStatut(membres, statut) {
   return membres.filter(membre => membre.statut_cotisation === statut);
 }
 
-
 /* [Dev FS2 — Membres — niveau S8 : tableau .filter + méthode de chaîne]
    Garde uniquement les membres dont le nom contient le texte recherché
    (recherche insensible à la casse), pour la barre de recherche.
@@ -76,7 +79,6 @@ function rechercherMembreParNom(membres, texte) {
     );
 
 }
-
 
 /* [Dev FS2 — Membres — niveau S7 : conditions simples — NOUVEAU]
    Vérifie qu'un formulaire de création de nouveau membre est valide
@@ -124,7 +126,6 @@ function validerFormulaireNouveauMembre(donnees) {
 
 }
 
-
 /* [Dev FS3 — Livraisons — niveau S7 : conditions imbriquées]
    Vérifie qu'un formulaire d'enregistrement de livraison est valide.
    Paramètre : donnees, un objet avec les clés :
@@ -136,6 +137,7 @@ function validerFormulaireNouveauMembre(donnees) {
    Retourne : true si tout est valide, false sinon.
    Astuce   : Number("abc") vaut NaN ; Number("40") vaut 40. */
 function validerFormulaireLivraison(donnees) {
+<<<<<<< HEAD
   // TODO : à compléter
   
   const membre = document.getElementById("f-membre").value;
@@ -161,8 +163,10 @@ function validerFormulaireLivraison(donnees) {
   }
 
   
+=======
+    // TODO : à compléter
+>>>>>>> 11490995dc4664c4f6bc725a9b34bd48cd6f67b9
 }
-
 
 /* [Dev FS3 — Livraisons — niveau S8 : tableau .sort]
    Trie une liste de livraisons par date, de la plus récente à la plus
@@ -172,11 +176,14 @@ function validerFormulaireLivraison(donnees) {
    Astuce    : au format "AAAA-MM-JJ", comparer les chaînes fonctionne
                directement (ordre alphabétique = ordre chronologique). */
 function trierLivraisonsParDate(livraisons) {
+<<<<<<< HEAD
   // TODO : à compléter
    
   
+=======
+    // TODO : à compléter
+>>>>>>> 11490995dc4664c4f6bc725a9b34bd48cd6f67b9
 }
-
 
 /* [Dev FS4 — Paiements — niveau S7 : conditions imbriquées]
    Vérifie qu'un formulaire d'enregistrement de paiement est valide
@@ -218,7 +225,6 @@ function validerFormulairePaiement(donnees) {
     alert("Paiement enregistré avec succès.");
 
 }
-
 
 /* [Dev FS4 — Paiements — niveau S7/S8 : boucle + accumulateur]
    Calcule le montant total d'une liste de paiements, pour l'indicateur
@@ -272,7 +278,6 @@ function validerFormulaireMembre(event){
 
 }
 
-
 /* [Dev FS5 — Ventes & Stock — niveau S7/S8 : condition sur un nombre]
    Retourne un texte de badge selon la quantité disponible d'une culture.
    Paramètre : quantiteDisponible (nombre, en kg)
@@ -282,9 +287,8 @@ function validerFormulaireMembre(event){
      - 50 kg ou plus       -> "Disponible"
    Retourne : une chaîne de caractères. */
 function getBadgeStock(quantiteDisponible) {
-  // TODO : à compléter
+    // TODO : à compléter
 }
-
 
 /* [Dev FS5 — fonction transverse — niveau S8 : propriétés d'objet + formatage]
    Met en forme un montant en FCFA, utilisée sur presque toutes les pages
@@ -293,9 +297,8 @@ function getBadgeStock(quantiteDisponible) {
    Retourne  : une chaîne de caractères, le nombre suivi de " FCFA".
    Exemple   : formaterMontant(23000) -> "23000 FCFA" */
 function formaterMontant(montant) {
-  // TODO : à compléter
+    // TODO : à compléter
 }
-
 
 /* [Dev FS6 — Statistiques — niveau S8 : tableau .sort]
    Trie le classement des membres par volume total, du plus gros
@@ -303,9 +306,8 @@ function formaterMontant(montant) {
    Paramètre : classement (tableau d'objets), chaque élément a .volume_total (nombre)
    Retourne  : le tableau trié par .volume_total décroissant. */
 function trierClassementParVolume(classement) {
-  // TODO : à compléter
+    // TODO : à compléter
 }
-
 
 /* [Dev FS6 — fonction transverse — niveau S8 : propriétés d'objet + formatage]
    Met en forme une date au format "AAAA-MM-JJ" en "JJ/MM/AAAA", utilisée
@@ -314,25 +316,24 @@ function trierClassementParVolume(classement) {
    Retourne  : une chaîne au format "12/07/2026".
    Astuce    : dateStr.split("-") donne ["2026", "07", "12"]. */
 function formaterDate(dateStr) {
-  // TODO : à compléter
+    // TODO : à compléter
 }
 
-
 /* NE PAS MODIFIER — rend vos fonctions accessibles à main.js et aux tests */
-if (typeof module !== "undefined") {
-  module.exports = {
-    validerFormulaireLogin,
-    compterJoursActifs,
-    formaterDate,
-    filtrerMembresParStatut,
-    rechercherMembreParNom,
-    validerFormulaireNouveauMembre,
-    validerFormulaireLivraison,
-    trierLivraisonsParDate,
-    validerFormulairePaiement,
-    calculerTotalPaiements,
-    getBadgeStock,
-    trierClassementParVolume,
-    formaterMontant,
-  };
+if (typeof module !== 'undefined') {
+    module.exports = {
+        validerFormulaireLogin,
+        compterJoursActifs,
+        formaterDate,
+        filtrerMembresParStatut,
+        rechercherMembreParNom,
+        validerFormulaireNouveauMembre,
+        validerFormulaireLivraison,
+        trierLivraisonsParDate,
+        validerFormulairePaiement,
+        calculerTotalPaiements,
+        getBadgeStock,
+        trierClassementParVolume,
+        formaterMontant,
+    };
 }
