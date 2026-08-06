@@ -1,96 +1,409 @@
-<!-- =========================================================
-   statistiques.html — styles spécifiques à cette page
-   uniquement pour le tableau des cultures et le classement des membres
-   ========================================================= -->
+:root {
+    /* Palette de couleur */
+    --vert-principal: #00331b;
+    --vert-secondaire: #4caf50;
+    --vert-clair: #d1ebd3;
+    --or-accent: #d4a017;
+    --beige: #f3f2e9;
+    --gris-fonce: #1f2937;
+    --gris-moyen: #687280;
+    --gris-clair: #f3f4f6;
+    --blanc: #ffffff;
+
+    /* États */
+    --rouge: #ef4444;
+    --jaune: #f59e0b;
+
+    /* Typographie */
+    --font-titre: 'Poppins', sans-serif;
+    --font-corps: 'Inter', sans-serif;
+
+    /* Espacements */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+
+    /* Rayons */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* Ombres */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: var(--font-corps);
+    color: var(--gris-fonce);
+    background-color: var(--beige);
+    line-height: 1.5;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* =====================================================================
+   SIDEBAR
+   ===================================================================== */
+.sidebar {
+    font-family: var(--font-titre);
+    width: 240px;
+    height: 100%;
+    background-color: #0b4d2f;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.logo {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo img {
+    display: block;
+    margin: 10px auto;
+    max-width: 100%;
+    height: auto;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    flex: 1;
+}
+
+.menu-lien {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.menu-lien i {
+    width: 20px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.menu-lien:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.menu-lien.active {
+    background-color: #146b3f;
+    color: #fff;
+    border-left-color: #a3d9b1;
+}
+
+.menu-deco {
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f87171;
+}
+
+.menu-deco:hover {
+    color: #fca5a5;
+}
+
+/* =====================================================================
+   MAIN & HEADER
+   ===================================================================== */
+main {
+    width: calc(100% - 260px);
+    background-color: var(--beige);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+header {
+    height: 95.5px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 14px 30px;
+}
+
+header .logo {
+    display: none;
+}
+
+.profil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--gris-clair);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.icon i {
+    font-size: 18px;
+    color: var(--vert-principal);
+}
+
+.icon i::after {
+    content: '5';
+    font-size: 10px;
+    font-weight: 600;
+    position: absolute;
+    background-color: var(--rouge);
+    color: var(--blanc);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -2px;
+    right: -2px;
+}
+
+.profil_detail {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.profil_detail span {
+    display: block;
+}
+
+#utilisateur-connecte {
+    font-family: var(--font-titre);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.profil_role {
+    font-size: 12px;
+    color: var(--gris-moyen);
+}
+
+.profil_box_picture {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--vert-clair);
+}
+
+.profil_box_picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =====================================================================
+   GRILLE STATISTIQUES
+   ===================================================================== */
+.main h1 {
+    font-family: var(--font-titre);
+    padding: var(--space-lg) var(--space-2xl);
+    margin-top: var(--space-2xl);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 30px;
+}
+
+.stats-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.card {
+    background: var(--blanc);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.card-title {
+    font-family: var(--font-titre);
+    font-size: 1.1rem;
+    color: var(--vert-principal);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
 /* ---------- classement des membres ---------- */
-#classement-membres{
-  list-style:none;
-  counter-reset:rang;
-  padding:0;
-  margin:0;
+#classement-membres {
+    list-style: none;
+    counter-reset: rang;
+    padding: 0;
+    margin: 0;
 }
-#classement-membres li{
-  counter-increment:rang;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid #F3F4F6;
-  font-size:14px;
+
+#classement-membres li {
+    counter-increment: rang;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gris-clair);
+    font-size: 14px;
+    color: var(--gris-fonce);
 }
-#classement-membres li:last-child{ border-bottom:none; }
-#classement-membres li::before{
-  content:counter(rang);
-  width:22px; height:22px;
-  border-radius:50%;
-  background:#E8F5E9;
-  color:#1E5E3A;
-  display:inline-flex; align-items:center; justify-content:center;
-  font-size:11px; font-weight:700;
-  margin-right:10px;
+#classement-membres li:last-child {
+    border-bottom: none;
+}
+#classement-membres li::before {
+    content: counter(rang);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--vert-clair);
+    color: var(--vert-principal);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 12px;
+    flex-shrink: 0;
 }
 
 /* ---------- tableau par culture ---------- */
-table{
-  width:100%;
-  border-collapse:collapse;
-  background:#fff;
-  border-radius:8px;
-  overflow:hidden;
+.table-wrapper {
+    overflow-x: auto;
 }
-thead th{
-  text-align:left;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.04em;
-  color:#687280;
-  padding:12px 14px;
-  border-bottom:1px solid #F3F4F6;
-  background:#F9FAFB;
+
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
-#tableau-cultures td{
-  padding:14px;
-  border-bottom:1px solid #F3F4F6;
-  font-size:14px;
+
+thead th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gris-moyen);
+    padding: 12px 8px;
+    border-bottom: 2px solid var(--gris-clair);
+    background: transparent;
 }
-#tableau-cultures tr:last-child td{ border-bottom:none; }
+
+#tableau-cultures td {
+    padding: 14px 8px;
+    border-bottom: 1px solid var(--gris-clair);
+    font-size: 14px;
+    color: var(--gris-fonce);
+}
+#tableau-cultures tr:last-child td {
+    border-bottom: none;
+}
 
 /* ---------- top acheteur ---------- */
-#top-acheteur{
-  background:#fff;
-  border:1px solid #D8CFB6;
-  border-left:4px solid #D4A017;
-  border-radius:8px;
-  padding:18px 20px;
+#top-acheteur {
+    background: #fffaeb;
+    border: 1px solid #f3e3ab;
+    border-left: 4px solid var(--or-accent);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    font-family: var(--font-titre);
+    font-weight: 600;
+    color: var(--vert-principal);
+    font-size: 16px;
+    line-height: 1.6;
 }
 
 /* ---------- rapport bailleur ---------- */
-#rapport-bailleur-contenu{
-  background:#fff;
-  border:1px solid #D8CFB6;
-  border-radius:8px;
-  padding:20px 22px;
+#rapport-bailleur-contenu {
+    /* Surcharge des anciens styles pour s'intégrer dans la card */
+    border: none;
+    padding: 0;
+    background: transparent;
 }
-.rb-intro{
-  font-size:13.5px;
-  color:#687280;
-  line-height:1.6;
-  margin:0 0 16px;
+
+.rb-intro {
+    font-size: 14px;
+    color: var(--gris-moyen);
+    line-height: 1.6;
+    margin: 0 0 24px;
 }
-.rb-stat{
-  display:inline-flex;
-  flex-direction:column;
-  margin-right:28px;
-  margin-bottom:12px;
+
+.rb-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
-.rb-label{
-  font-size:11px;
-  color:#687280;
-  margin-bottom:4px;
+
+.rb-stat {
+    background: var(--gris-clair);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
 }
-#rb-volume, #rb-montant, #rb-taux, #rb-membres{
-  font-family:'Poppins', sans-serif;
-  font-weight:700;
-  font-size:18px;
-  color:#1E5E3A;
-} 
+
+.rb-label {
+    font-size: 12px;
+    color: var(--gris-moyen);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+
+.rb-value {
+    font-family: var(--font-titre);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--vert-principal);
+}

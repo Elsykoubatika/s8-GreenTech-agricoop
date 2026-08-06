@@ -1,41 +1,186 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgriCoop Connect — Ventes & Stock</title>
-  <link rel="stylesheet" href="ventes.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AgriCoop Connect — Ventes</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+        <link rel="stylesheet" href="ventes.css" />
+    </head>
+    <body>
+        <div class="container">
+            <aside class="sidebar" id="sidebar">
+                <div class="logo">
+                    <img
+                        src="../assets/logo.png"
+                        alt="Logo Agricoop"
+                        width="150px"
+                    />
+                </div>
 
-  <!-- NAVIGATION — TODO (Dev FS5) -->
+                <nav class="menu">
+                    <a href="../dashboard/dashboard.html" class="menu-lien">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                    <a href="../membres/membres.html" class="menu-lien">
+                        <i class="fas fa-users"></i>
+                        <span>Membres</span>
+                    </a>
+                    <a href="../livraisons/livraisons.html" class="menu-lien">
+                        <i class="fas fa-truck"></i>
+                        <span>Livraisons</span>
+                    </a>
+                    <a href="../paiements/paiements.html" class="menu-lien">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Paiements</span>
+                    </a>
+                    <a href="../ventes/ventes.html" class="menu-lien active">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                        <span>Ventes</span>
+                    </a>
+                    <a
+                        href="../statistiques/statistiques.html"
+                        class="menu-lien"
+                    >
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Statistiques</span>
+                    </a>
+                    <a href="../comptes/comptes.html" class="menu-lien">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Comptes</span>
+                    </a>
 
-  <main>
-    <!-- =====================================================================
-         CARTES STOCK — TODO (Dev FS5)
-         Le contenu est injecté par main.js (une carte par culture avec
-         badge et barre de remplissage). Le dev stylise .card, .badge,
-         .barre-stock-fond, .barre-stock-remplissage.
+                    <a
+                        href="#"
+                        id="btn-deconnexion"
+                        class="menu-lien menu-deco"
+                    >
+                        <i class="fas fa-power-off"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                </nav>
+            </aside>
 
-         *** NE PAS MODIFIER l'id ci-dessous — main.js l'utilise ***
-         ===================================================================== -->
-    <div id="cartes-stock"></div>
+            <main>
+                <header class="header">
+                    <img
+                        src="../assets/logo__fond_blanc.png"
+                        alt="Logo Agricoop"
+                        width="150px"
+                        class="logo"
+                    />
 
-    <!-- =====================================================================
-         TABLEAU DES VENTES — TODO (Dev FS5)
+                    <div class="profil">
+                        <div class="icon">
+                            <i
+                                class="fa-regular fa-bell"
+                                style="color: #00331b"
+                            ></i>
+                        </div>
 
-         *** NE PAS MODIFIER l'id ci-dessous — main.js l'utilise ***
-         ===================================================================== -->
-    <table>
-      <thead>
-        <!-- TODO (Dev FS5) : en-têtes (Acheteur, Culture, Quantité, Prix/kg) -->
-      </thead>
-      <tbody id="liste-ventes"></tbody>
-    </table>
-  </main>
+                        <div class="profil_detail">
+                            <span id="utilisateur-connecte">Chargement...</span>
+                            <span class="profil_role" id="role_utilisateur"
+                                >Utilisateur</span
+                            >
+                        </div>
 
-  <!-- NE PAS MODIFIER — scripts de connexion au backend -->
-  <script src="../functions.js"></script>
-  <script src="../main.js"></script>
-</body>
+                        <div class="profil_box_picture">
+                            <img
+                                src="../assets/sarah_malonga.png"
+                                alt="Photo de profil"
+                                width="150px"
+                            />
+                        </div>
+                    </div>
+                </header>
+
+                <div class="main">
+                    <h1>Ventes</h1>
+
+                
+                    <div class="ventes-top-section">
+                        <!-- Formulaire d'enregistrement de vente -->
+                        <form id="form-vente" class="form-card">
+                            <h2>Enregistrer une vente</h2>
+                            <div class="form-row">
+                                <input
+                                    type="text"
+                                    id="v-acheteur"
+                                    list="v-acheteur-list"
+                                    placeholder="Acheteur"
+                                />
+                                <datalist id="v-acheteur-list">
+                                    <!-- Les options d'acheteurs peuvent être ajoutées ici -->
+                                </datalist>
+
+                                <input
+                                    type="text"
+                                    id="v-culture"
+                                    list="v-culture-list"
+                                    placeholder="Culture"
+                                />
+                                <datalist id="v-culture-list">
+                                    <option value="Manioc"></option>
+                                    <option value="Mais"></option>
+                                    <option value="Arachide"></option>
+                                </datalist>
+                            </div>
+                            <div class="form-row">
+                                <input
+                                    type="number"
+                                    id="v-quantite"
+                                    min="1"
+                                    placeholder="Quantité (kg)"
+                                />
+                                <input
+                                    type="number"
+                                    id="v-prix"
+                                    min="1"
+                                    placeholder="Prix unitaire (FCFA)"
+                                />
+                            </div>
+                            <button type="submit" class="v-btn">
+                                Enregistrer
+                            </button>
+                        </form>
+
+                        <!-- Cartes de stock disponible -->
+                        <div id="cartes-stock" class="stock-grid">
+                            <!-- Le contenu sera injecté par main.js -->
+                        </div>
+                    </div>
+
+                    <!-- Historique des ventes -->
+                    <div class="table-section">
+                        <h2>Historique des ventes</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Acheteur</th>
+                                    <th>Culture</th>
+                                    <th>Quantité</th>
+                                    <th>Prix unitaire</th>
+                                </tr>
+                            </thead>
+                            <tbody id="liste-ventes"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- NE PAS MODIFIER — scripts de connexion au backend -->
+        <script src="../functions.js"></script>
+        <script src="../main.js"></script>
+    </body>
 </html>

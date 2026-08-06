@@ -1,3 +1,6 @@
+/* =====================================================================
+   VARIABLES & BASE
+   ===================================================================== */
 :root {
     /* Palette de couleur */
     --vert-principal: #00331b;
@@ -19,12 +22,12 @@
     --font-corps: 'Inter', sans-serif;
 
     /* Espacements */
-    --space-xs: 0.25rem; /* 4px */
-    --space-sm: 0.5rem; /* 8px */
-    --space-md: 1rem; /* 16px */
-    --space-lg: 1.5rem; /* 24px */
-    --space-xl: 2rem; /* 32px */
-    --space-2xl: 3rem; /* 48px */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
 
     /* Rayons */
     --radius-sm: 4px;
@@ -60,6 +63,9 @@ body {
     height: 100vh;
 }
 
+/* =====================================================================
+   SIDEBAR
+   ===================================================================== */
 .sidebar {
     font-family: var(--font-titre);
     width: 240px;
@@ -69,6 +75,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease;
+    flex-shrink: 0;
 }
 
 .logo {
@@ -78,7 +85,9 @@ body {
 
 .logo img {
     display: block;
-    margin: 10px;
+    margin: 10px auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .menu {
@@ -127,27 +136,12 @@ body {
     color: #fca5a5;
 }
 
-/* .burger-btn {
-    display: none;
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 110;
-    background: #0b4d2f;
-    color: #fff;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-size: 18px;
-    cursor: pointer;
-} */
-
 main {
     width: calc(100% - 240px);
     background-color: var(--beige);
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 header {
@@ -157,16 +151,16 @@ header {
     top: 0;
     z-index: 100;
     background-color: #fff;
+
     box-shadow: var(--shadow-md);
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding: 14px 30px;
+
 }
 
 header .logo {
-    width: 150px;
-    height: auto;
     display: none;
 }
 
@@ -174,404 +168,306 @@ header .logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
 }
 
 .icon {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background: var(--gris-clair);
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    cursor: pointer;
+}
+
+.icon i {
+    font-size: 18px;
+    color: var(--vert-principal);
 }
 
 .icon i::after {
     content: '5';
-    font-size: 7px;
+    font-size: 10px;
+    font-weight: 600;
     position: absolute;
     background-color: var(--rouge);
     color: var(--blanc);
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 3px;
-    right: 10px;
+    top: -2px;
+    right: -2px;
 }
 
 .profil_detail {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     flex-direction: column;
+    line-height: 1.2;
 }
 
 .profil_detail span {
     display: block;
 }
 
-.profil_role {
+#utilisateur-connecte {
+    font-family: var(--font-titre);
+    font-weight: 600;
     font-size: 14px;
 }
 
+.profil_role {
+    font-size: 12px;
+    color: var(--gris-moyen);
+}
+
 .profil_box_picture {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     overflow: hidden;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 2px solid var(--vert-clair);
 }
 
-/* ===================== CONTENU DE PAGE ===================== */
-.contenu-page {
+.profil_box_picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* =====================================================================
+   LIVRAISONS - CONTENEUR PRINCIPAL
+   ===================================================================== */
+.livraison-container {
     padding: var(--space-xl) var(--space-2xl);
     display: flex;
     flex-direction: column;
-    max-width: 1200px;
-    margin: 0 auto;
+    gap: var(--space-xl);
+}
+
+.livraison-container h1 {
+    font-family: var(--font-titre);
+    font-size: 1.75rem;
+    color: var(--vert-principal);
+    font-weight: 600;
+}
+
+/* =====================================================================
+   FORMULAIRE D'ENREGISTREMENT
+   ===================================================================== */
+.formulaire {
+    background-color: var(--blanc);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) auto;
+    gap: var(--space-lg);
+    align-items: flex-end;
+}
+
+.formulaire .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.field label {
+    font-family: var(--font-titre);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gris-fonce);
+}
+
+.field select,
+.field input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius-md);
+    font-family: var(--font-corps);
+    font-size: 0.95rem;
+    color: var(--gris-fonce);
+    background-color: var(--gris-clair);
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background-color 0.2s;
     width: 100%;
 }
 
-.page-entete {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-}
-
-.page-titre {
-    font-family: var(--font-titre);
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: var(--vert-principal);
-    letter-spacing: -0.02em;
-}
-
-.page-sous-titre {
-    font-size: 0.95rem;
-    color: var(--gris-moyen);
-}
-
-/* ===================== CARTES ===================== */
-
-.carte-formulaire {
-    margin-bottom: 100px;
-}
-
-.carte-formulaire,
-.carte-tableau {
+.field select:focus,
+.field input:focus {
+    outline: none;
+    border-color: var(--vert-secondaire);
     background-color: var(--blanc);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: var(--space-xl);
-    border: 1px solid rgba(0, 51, 27, 0.06);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
-.carte-entete {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--gris-clair);
-}
-
-.carte-entete-icone {
-    width: 48px;
-    height: 48px;
+.formulaire button[type='submit'] {
+    background-color: var(--vert-principal);
+    color: var(--blanc);
+    border: none;
+    padding: 0.8rem 1.5rem;
     border-radius: var(--radius-md);
-    background-color: var(--vert-clair);
-    color: var(--vert-principal);
+    font-family: var(--font-titre);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    height: 46px; /* Aligné avec la hauteur des inputs */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
-    flex-shrink: 0;
-}
-
-.carte-titre {
-    font-family: var(--font-titre);
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--gris-fonce);
-    margin: 0;
-}
-
-.carte-description {
-    font-size: 0.875rem;
-    color: var(--gris-moyen);
-    margin: 2px 0 0 0;
-}
-
-/* ===================== FORMULAIRE ===================== */
-.form-grille {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr) auto;
-    gap: var(--space-md);
-    align-items: end;
-}
-
-.champ {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-}
-
-.champ-etiquette {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--gris-fonce);
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-}
-
-.champ-icone {
-    color: var(--vert-secondaire);
-    font-size: 0.8rem;
-    width: 16px;
-    text-align: center;
-}
-
-.champ-controle {
-    width: 100%;
-    padding: 0.7rem 0.9rem;
-    font-family: var(--font-corps);
-    font-size: 0.9rem;
-    color: var(--gris-fonce);
-    background-color: var(--gris-clair);
-    border: 1.5px solid transparent;
-    border-radius: var(--radius-md);
-    transition: all 0.2s ease;
-    outline: none;
-}
-
-.champ-controle:focus {
-    background-color: var(--blanc);
-    border-color: var(--vert-secondaire);
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.12);
-}
-
-.champ-controle::placeholder {
-    color: var(--gris-moyen);
-}
-
-.champ-action {
-    align-self: end;
-}
-
-/* ===================== BOUTONS ===================== */
-.bouton-principal {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: 0.75rem 1.5rem;
-    font-family: var(--font-titre);
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--blanc);
-    background-color: var(--vert-principal);
-    border: none;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(0, 51, 27, 0.2);
-}
-
-.bouton-principal:hover {
-    background-color: #002814;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 51, 27, 0.28);
-}
-
-.bouton-principal:active {
-    transform: translateY(0);
-}
-
-.bouton-secondaire {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: 0.6rem 1.1rem;
-    font-family: var(--font-titre);
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--vert-principal);
-    background-color: var(--vert-clair);
-    border: 1px solid transparent;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all 0.2s ease;
+    gap: 8px;
     white-space: nowrap;
 }
 
-.bouton-secondaire:hover {
-    background-color: #c1e3c4;
-    border-color: var(--vert-secondaire);
+.formulaire button[type='submit']:hover {
+    background-color: #0b4d2f;
 }
 
-/* ===================== MESSAGES ===================== */
-.message {
+
+#message-erreur-livraison,
+#message-succes-livraison {
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: 0.95rem;
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
-    padding: 0.875rem 1rem;
-    border-radius: var(--radius-md);
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-top: var(--space-lg);
-    animation: glisserHaut 0.3s ease;
+    gap: 10px;
 }
 
-.message i {
-    font-size: 1.1rem;
+
+#message-erreur-livraison[hidden],
+#message-succes-livraison[hidden] {
+    display: none;
 }
 
-.message-erreur {
-    background-color: #fee2e2;
-    color: #991b1b;
-    border-left: 4px solid var(--rouge);
-}
-
-.message-succes {
+#message-succes-livraison {
     background-color: var(--vert-clair);
     color: var(--vert-principal);
     border-left: 4px solid var(--vert-secondaire);
 }
 
-/* ===================== TABLEAU ===================== */
-.tableau-entete {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--gris-clair);
+#message-erreur-livraison {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid var(--rouge);
 }
 
-.tableau-conteneur {
-    overflow-x: auto;
+/* =====================================================================
+   BOUTON DE TRI
+   ===================================================================== */
+#btn-trier-livraisons {
+    align-self: flex-start;
+    background-color: transparent;
+    color: var(--vert-principal);
+    border: 1px solid var(--vert-principal);
+    padding: 0.6rem 1.25rem;
     border-radius: var(--radius-md);
-    border: 1px solid var(--gris-clair);
-}
-
-.tableau {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-}
-
-.tableau thead {
-    background-color: var(--vert-principal);
-}
-
-.tableau th {
-    padding: 0.9rem 1.1rem;
-    text-align: left;
     font-family: var(--font-titre);
     font-weight: 500;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#btn-trier-livraisons:hover {
+    background-color: var(--vert-principal);
     color: var(--blanc);
 }
 
-.tableau th:first-child {
-    border-top-left-radius: var(--radius-sm);
+/* =====================================================================
+   TABLEAU DES LIVRAISONS
+   ===================================================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--blanc);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
-.tableau th:last-child {
-    border-top-right-radius: var(--radius-sm);
+thead th {
+    background-color: var(--vert-principal);
+    color: var(--blanc);
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-family: var(--font-titre);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.tableau td {
-    padding: 0.95rem 1.1rem;
-    color: var(--gris-fonce);
+tbody td {
+    padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--gris-clair);
+    color: var(--gris-fonce);
+    font-size: 0.95rem;
 }
 
-.tableau tbody tr {
-    transition: background-color 0.15s ease;
-}
-
-.tableau tbody tr:hover {
-    background-color: var(--beige);
-}
-
-.tableau tbody tr:last-child td {
+tbody tr:last-child td {
     border-bottom: none;
 }
 
-.col-membre {
-    font-weight: 600;
+tbody tr:hover {
+    background-color: var(--beige);
 }
 
-.col-culture {
-    color: var(--gris-moyen);
-}
-
-.col-quantite {
-    font-weight: 600;
-    color: var(--vert-principal);
-}
-
-.col-date {
-    color: var(--gris-moyen);
-    font-size: 0.85rem;
-}
-
-.tableau-vide {
-    text-align: center !important;
-    padding: 2.5rem !important;
-    color: var(--gris-moyen) !important;
-    font-style: italic;
-}
-
-.tableau-vide i {
-    display: block;
-    font-size: 2rem;
-    margin-bottom: var(--space-sm);
-    color: var(--gris-moyen);
-    opacity: 0.4;
-}
-
-/* Badges culture dans le tableau */
-.tableau td.col-culture {
-    color: var(--vert-principal);
-    font-weight: 500;
-}
-
-/* ===================== RESPONSIVE ===================== */
-@media (max-width: 1024px) {
-    .form-grille {
+/* =====================================================================
+   RESPONSIVE (Adaptation mobile)
+   ===================================================================== */
+@media (max-width: 992px) {
+    .formulaire {
         grid-template-columns: 1fr 1fr;
     }
-    .champ-action {
-        grid-column: 1 / -1;
-    }
-    .bouton-principal {
+    .formulaire button[type='submit'] {
+        grid-column: span 2;
         width: 100%;
-        justify-content: center;
     }
 }
 
 @media (max-width: 768px) {
-    .contenu-page {
-        padding: var(--space-lg);
+    .sidebar {
+        transform: translateX(-100%);
+        position: fixed;
+        z-index: 1000;
     }
-    .form-grille {
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    main {
+        width: 100%;
+    }
+    header .logo {
+        display: block;
+    }
+    .formulaire {
         grid-template-columns: 1fr;
     }
-    .tableau-entete {
-        flex-direction: column;
-        align-items: flex-start;
+    .formulaire button[type='submit'] {
+        grid-column: span 1;
+    }
+    .profil_detail {
+        display: none;
+    }
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
     }
 }
