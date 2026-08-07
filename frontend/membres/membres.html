@@ -28,10 +28,7 @@
                 </div>
 
                 <nav class="menu">
-                    <a
-                        href="../dashboard/dashboard.html"
-                        class="menu-lien "
-                    >
+                    <a href="../dashboard/dashboard.html" class="menu-lien">
                         <i class="fas fa-chart-line"></i>
                         <span>Tableau de bord</span>
                     </a>
@@ -116,38 +113,7 @@
          *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
          ===================================================================== -->
                 <div class="main">
-                    <h1>MEMBRES</h3>
-                    <h4>Filtre par statut</h4>
-                    <select id="filtre-statut">
-                        <option value="">Tous</option>
-                        <option value="À jour">À jour</option>
-                        <option value="En retard">En retard</option>
-                    </select>
-
-                    <input
-                        type="text"
-                        id="champ-recherche-membre"
-                        placeholder="Rechercher un membre..."
-                    />
-
-                    <!-- =====================================================================
-         LISTE DES MEMBRES — TODO (Dev FS2)
-         Le contenu est injecté par main.js. Le dev doit structurer le
-         conteneur et styliser les éléments .membre-ligne, .badge.
-
-         *** NE PAS MODIFIER l'id ci-dessous — main.js l'utilise ***
-         ===================================================================== -->
-                    <div id="liste-membres"></div>
-
-                    <!-- =====================================================================
-         NOUVEAU MEMBRE — TODO (Dev FS2)
-         Construire le formulaire de création d'un membre (module Membres,
-         nouveau — section 4.1 du FRD). Les 4 champs sont obligatoires.
-         Le village est un menu déroulant fermé (rempli par main.js depuis
-         la liste de référence de la coopérative), pas un champ libre.
-
-         *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
-         ===================================================================== -->
+                    <h1>MEMBRES</h1>
                     <form id="form-nouveau-membre">
                         <h3>Nouveau Membre</h3>
                         <label for="last_name">Nom</label>
@@ -182,6 +148,38 @@
 
                     <div id="erreurs-nouveau-membre" hidden></div>
                     <div id="message-succes-nouveau-membre" hidden></div>
+
+                    <h4>Filtre par statut</h4>
+                    <select id="filtre-statut">
+                        <option value="">Tous</option>
+                        <option value="À jour">À jour</option>
+                        <option value="En retard">En retard</option>
+                    </select>
+
+                    <input
+                        type="text"
+                        id="champ-recherche-membre"
+                        placeholder="Rechercher un membre..."
+                    />
+
+                    <!-- =====================================================================
+         LISTE DES MEMBRES — TODO (Dev FS2)
+         Le contenu est injecté par main.js. Le dev doit structurer le
+         conteneur et styliser les éléments .membre-ligne, .badge.
+
+         *** NE PAS MODIFIER l'id ci-dessous — main.js l'utilise ***
+         ===================================================================== -->
+                    <div id="liste-membres"></div>
+
+                    <!-- =====================================================================
+         NOUVEAU MEMBRE — TODO (Dev FS2)
+         Construire le formulaire de création d'un membre (module Membres,
+         nouveau — section 4.1 du FRD). Les 4 champs sont obligatoires.
+         Le village est un menu déroulant fermé (rempli par main.js depuis
+         la liste de référence de la coopérative), pas un champ libre.
+
+         *** NE PAS MODIFIER les id ci-dessous — main.js les utilise ***
+         ===================================================================== -->
                 </div>
             </main>
         </div>

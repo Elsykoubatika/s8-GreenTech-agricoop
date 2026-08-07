@@ -181,42 +181,5 @@
 
         <script src="../functions.js"></script>
         <script src="../main.js"></script>
-        <script>
-            async function remplirSelectMembres() {
-                const selectMembre = document.getElementById('f-membre');
-                if (!selectMembre) return;
-
-                try {
-                    // On appelle l'API pour récupérer les membres
-                    const reponse = await fetch(
-                        'http://localhost:5000/api/membres',
-                    );
-                    const data = await reponse.json();
-
-                    if (reponse.ok && data.membres) {
-                        // On vide l'option par défaut
-                        selectMembre.innerHTML =
-                            '<option value="">-- Choisir un membre --</option>';
-
-                        // On ajoute chaque membre dans le select
-                        data.membres.forEach((membre) => {
-                            const option = document.createElement('option');
-                            // main.js utilise Number(...) sur cette valeur, il faut donc l'ID
-                            option.value = membre.id || membre._id;
-                            option.textContent = membre.nom;
-                            selectMembre.appendChild(option);
-                        });
-                    }
-                } catch (e) {
-                    console.error(
-                        'Impossible de charger les membres pour le formulaire :',
-                        e,
-                    );
-                }
-            }
-
-            // On lance la fonction quand la page est prête
-            document.addEventListener('DOMContentLoaded', remplirSelectMembres);
-        </script>
     </body>
 </html>

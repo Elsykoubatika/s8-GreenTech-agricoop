@@ -135,7 +135,8 @@ async function initDashboard() {
         const joursActifs = document.getElementById('jours-actifs');
         if (joursActifs) {
             joursActifs.textContent =
-                compterJoursActifs(data.livraisons_par_jour, 80) + ` jours`;
+                compterJoursActifs(data.livraisons_par_jour, 80) +
+                ' jour(s) à forte activité (> 80 kg)';
         }
     } catch (e) {
         console.error('Section jours-actifs :', e);
@@ -274,6 +275,26 @@ function initFormLivraison() {
     const form = document.getElementById('form-livraison');
     if (!form) return;
 
+    // Remplit le menu déroulant "Choisir un membre" avec la vraie liste
+    // des membres — sans ce chargement, le menu reste vide en dehors de
+    // son option de remplacement.
+    const selectMembre = document.getElementById('f-membre');
+    if (selectMembre) {
+        fetch(`${API_URL}/membres`)
+            .then((r) => r.json())
+            .then((data) => {
+                const membres = data.membres || [];
+                selectMembre.innerHTML =
+                    `<option value="">-- Choisir un membre --</option>` +
+                    membres
+                        .map((m) => `<option value="${m.id}">${m.nom}</option>`)
+                        .join('');
+            })
+            .catch((e) =>
+                console.error('Impossible de charger les membres :', e),
+            );
+    }
+
     form.addEventListener('submit', async (evt) => {
         evt.preventDefault();
         const donnees = {
@@ -364,6 +385,26 @@ async function chargerPaiements() {
 function initFormPaiement() {
     const form = document.getElementById('form-paiement');
     if (!form) return;
+
+    // Remplit le menu déroulant "Choisir un membre" avec la vraie liste
+    // des membres — sans ce chargement, le menu reste vide en dehors de
+    // son option de remplacement.
+    const selectMembre = document.getElementById('p-membre');
+    if (selectMembre) {
+        fetch(`${API_URL}/membres`)
+            .then((r) => r.json())
+            .then((data) => {
+                const membres = data.membres || [];
+                selectMembre.innerHTML =
+                    `<option value="">-- Choisir un membre --</option>` +
+                    membres
+                        .map((m) => `<option value="${m.id}">${m.nom}</option>`)
+                        .join('');
+            })
+            .catch((e) =>
+                console.error('Impossible de charger les membres :', e),
+            );
+    }
 
     form.addEventListener('submit', async (evt) => {
         evt.preventDefault();
